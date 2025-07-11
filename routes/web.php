@@ -56,9 +56,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Core'], function()
             Route::patch('/{menu}/update', 'MenusController@update')->name('menus.update');
             Route::get('/{menu}/delete', 'MenusController@destroy')->name('menus.destroy');
         });
-		
-		Route::resource('roles', RolesController::class);
-        Route::resource('permissions', PermissionsController::class);	
+
 	});
 });
 

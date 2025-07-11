@@ -10,8 +10,8 @@ class Permohonaninformasi extends Model
     use HasFactory;
 
     protected $table = 'permohonaninformasi';
-    protected $id = 'id';
     protected $fillable = [
+        'id',
         'nama_pemohon',
         'nik',
         'alamat_pemohon',
