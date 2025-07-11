@@ -5,7 +5,6 @@ namespace Modules\Ppid\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
 use Modules\Ppid\Entities\Berita;
 
 class BeritaController extends Controller
@@ -26,7 +25,7 @@ class BeritaController extends Controller
      */
     public function create()
     {
-        return view('ppid::berita.add');
+        return view('ppid::berita.create');
     }
 
     /**

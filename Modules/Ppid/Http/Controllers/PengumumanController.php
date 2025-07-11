@@ -5,6 +5,7 @@ namespace Modules\Ppid\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Ppid\Entities\Pengumuman;
 
 class PengumumanController extends Controller
 {
@@ -14,7 +15,8 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        return view('ppid::index');
+        $pengumumans = Pengumuman::all();
+        return view('ppid::pengumuman.index', compact('pengumumans'));
     }
 
     /**
@@ -23,7 +25,7 @@ class PengumumanController extends Controller
      */
     public function create()
     {
-        return view('ppid::create');
+        return view('ppid::pengumuman.create');
     }
 
     /**
@@ -33,7 +35,20 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'tanggal' => 'required|date',
+            'sumber' => 'nullable|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $data = $request->only(['judul', 'deskripsi', 'tanggal', 'sumber']);
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+        }
+        Pengumuman::create($data);
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan.');
     }
 
     /**
@@ -43,7 +58,8 @@ class PengumumanController extends Controller
      */
     public function show($id)
     {
-        return view('ppid::show');
+        $pengumuman = Pengumuman::findOrFail($id);
+        return view('ppid::pengumuman.show', compact('pengumuman'));
     }
 
     /**
@@ -53,7 +69,8 @@ class PengumumanController extends Controller
      */
     public function edit($id)
     {
-        return view('ppid::edit');
+        $pengumuman = Pengumuman::findOrFail($id);
+        return view('ppid::pengumuman.edit', compact('pengumuman'));
     }
 
     /**
@@ -64,7 +81,20 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'tanggal' => 'required|date',
+            'sumber' => 'nullable|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $pengumuman = Pengumuman::findOrFail($id);
+        $data = $request->only(['judul', 'deskripsi', 'tanggal', 'sumber']);
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+        }
+        $pengumuman->update($data);
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui.');
     }
 
     /**
@@ -74,6 +104,8 @@ class PengumumanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pengumuman = Pengumuman::findOrFail($id);
+        $pengumuman->delete();
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus.');
     }
 }

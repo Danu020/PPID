@@ -13,26 +13,43 @@ class PermohonaninformasiController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
+    // Untuk pengguna (user biasa)
     public function index(Request $request)
-{
-    $search = $request->input('search');
+    {
+        $search = $request->input('search');
+        $permohonaninformasi = Permohonaninformasi::when($search, function ($query, $search) {
+            return $query->where('nama_pemohon', 'like', "%{$search}%")
+                         ->orWhere('nik', 'like', "%{$search}%");
+        })
+        // filter hanya data milik user jika ada sistem user_id, contoh:
+        // ->where('user_id', auth()->id())
+        ->get();
+        return view('ppid::pemohon.index', compact('permohonaninformasi'));
+    }
 
-    $permohonaninformasi = Permohonaninformasi::when($search, function ($query, $search) {
-        return $query->where('nama_pemohon', 'like', "%{$search}%")
-                     ->orWhere('nik', 'like', "%{$search}%");
-    })->get();
-
-    return view('ppid::permohonaninformasi.index', compact('permohonaninformasi'));
-}
+    // Untuk admin (tampilan admin)
+    public function adminIndex(Request $request)
+    {
+        $search = $request->input('search');
+        $permohonaninformasi = Permohonaninformasi::when($search, function ($query, $search) {
+            return $query->where('nama_pemohon', 'like', "%{$search}%")
+                         ->orWhere('nik', 'like', "%{$search}%");
+        })->get();
+        return view('ppid::datapemohon.index', compact('datapemohon'));
+    }
 
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('ppid::permohonan.add');
+        // Jika route berasal dari datapemohon, gunakan view datapemohon
+        if ($request->route()->getName() === 'datapemohon.create') {
+            return view('ppid::datapemohon.create');
+        }
+        return view('ppid::permohonaninformasi.add');
     }
 
     /**
@@ -61,7 +78,11 @@ class PermohonaninformasiController extends Controller
             'alasan_permohonan' => $request->alasan_permohonan,
             'status' => 'menunggu', // default saat input
         ]);
-        return redirect()->route('permohonan.index')->with('success', 'Data berhasil ditambahkan.');
+        // Redirect sesuai asal route
+        if ($request->route()->getName() === 'datapemohon.store') {
+            return redirect()->route('datapemohon.index')->with('success', 'Data berhasil ditambahkan.');
+        }
+        return redirect()->route('permohonaninformasi.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
@@ -79,10 +100,13 @@ class PermohonaninformasiController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $permohonaninformasi = Permohonaninformasi::findOrFail($id);
-        return view('ppid::permohonan.edit', compact('permohonan'));
+        if ($request->route()->getName() === 'datapemohon.edit') {
+            return view('ppid::datapemohon.edit', compact('permohonaninformasi'));
+        }
+        return view('ppid::permohonaninformasi.edit', compact('permohonaninformasi'));
     }
 
     /**
@@ -105,7 +129,10 @@ class PermohonaninformasiController extends Controller
         ]);
         $permohonaninformasi = Permohonaninformasi::findOrFail($id);
         $permohonaninformasi->update($request->all());
-        return redirect()->route('permohonan.index')->with('success', 'Data berhasil diperbarui');
+        if ($request->route()->getName() === 'datapemohon.update') {
+            return redirect()->route('datapemohon.index')->with('success', 'Data berhasil diperbarui');
+        }
+        return redirect()->route('permohonaninformasi.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**
@@ -113,10 +140,13 @@ class PermohonaninformasiController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $permohonaninformasi = Permohonaninformasi::findOrFail($id);
         $permohonaninformasi->delete();
-        return redirect()->route('permohonan.index')->with('success', 'Data berhasil dihapus');
+        if ($request->route()->getName() === 'datapemohon.destroy') {
+            return redirect()->route('datapemohon.index')->with('success', 'Data berhasil dihapus');
+        }
+        return redirect()->route('permohonaninformasi.index')->with('success', 'Data berhasil dihapus');
     }
 }

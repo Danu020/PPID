@@ -1,11 +1,11 @@
 @extends('adminlte::page')
-@section('title', 'Tambah Berita')
+@section('title', 'Tambah Pengumuman')
 @section('content')
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h5 class="mb-3">Tambah Berita</h5>
-            <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+            <h5 class="mb-3">Tambah Pengumuman</h5>
+            <form action="{{ route('pengumuman.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="judul" class="form-label">Judul</label>
@@ -28,7 +28,7 @@
                     <input type="file" name="gambar" id="gambar" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('berita.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary">Kembali</a>
             </form>
         </div>
     </div>

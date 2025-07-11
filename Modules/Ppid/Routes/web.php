@@ -59,13 +59,18 @@ Route::prefix('ppid')->group(function() {
     });
 
     // Permohonan Informasi
-    Route::prefix('permohonan-informasi')->group(function () {
-        Route::get('/', 'PermohonaninformasiController@index')->name('permohonaninformasi.index');
+    Route::prefix('pemohon')->group(function () {
+        // Untuk pengguna
+        Route::get('/', 'PermohonaninformasiController@index')->name('pemohon.index');
         Route::get('/create', 'PermohonaninformasiController@create')->name('permohonaninformasi.create');
         Route::post('/store', 'PermohonaninformasiController@store')->name('permohonaninformasi.store');
+        Route::get('/{id}', 'PermohonaninformasiController@show')->name('permohonaninformasi.show');
         Route::get('/{id}/edit', 'PermohonaninformasiController@edit')->name('permohonaninformasi.edit');
         Route::put('/{id}/update', 'PermohonaninformasiController@update')->name('permohonaninformasi.update');
-        Route::delete('/{id}/delete', 'PermohonaninformasiController@destroy')->name('permohonaninformasi.destroy');
+        // Route::delete('/{id}/delete', 'PermohonaninformasiController@destroy')->name('permohonaninformasi.destroy');
+
+        // Untuk admin
+        // Route::get('/admin/all', 'PermohonaninformasiController@adminIndex')->name('permohonaninformasi.admin.index');
     });
 
     // Berita CRUD
@@ -79,4 +84,41 @@ Route::prefix('ppid')->group(function() {
         Route::delete('/{id}/delete', 'BeritaController@destroy')->name('berita.destroy');
     });
 
+    // Pengumuman CRUD
+    Route::prefix('pengumuman')->group(function () {
+        Route::get('/', 'PengumumanController@index')->name('pengumuman.index');
+        Route::get('/create', 'PengumumanController@create')->name('pengumuman.create');
+        Route::post('/store', 'PengumumanController@store')->name('pengumuman.store');
+        Route::get('/{id}', 'PengumumanController@show')->name('pengumuman.show');
+        Route::get('/{id}/edit', 'PengumumanController@edit')->name('pengumuman.edit');
+        Route::put('/{id}/update', 'PengumumanController@update')->name('pengumuman.update');
+        Route::delete('/{id}/delete', 'PengumumanController@destroy')->name('pengumuman.destroy');
+    });
+
+    // Jenis Permohonan CRUD
+    Route::prefix('jenis-permohonan')->group(function () {
+        Route::get('/', 'JenisPermohonanController@index')->name('jenispermohonan.index');
+        Route::get('/create', 'JenisPermohonanController@create')->name('jenispermohonan.create');
+        Route::post('/store', 'JenisPermohonanController@store')->name('jenispermohonan.store');
+        Route::get('/{id}', 'JenisPermohonanController@show')->name('jenispermohonan.show');
+        Route::get('/{id}/edit', 'JenisPermohonanController@edit')->name('jenispermohonan.edit');
+        Route::put('/{id}/update', 'JenisPermohonanController@update')->name('jenispermohonan.update');
+        Route::delete('/{id}/delete', 'JenisPermohonanController@destroy')->name('jenispermohonan.destroy');
+    });
+
+    // Data Pemohon CRUD
+    Route::prefix('data-pemohon')->group(function() {
+        Route::get('/', 'PermohonaninformasiController@index')->name('permohonaninformasi.index');
+    });
+
+    // Jenis Dokumen CRUD
+    Route::prefix('jenis-dokumen')->group(function () {
+        Route::get('/', 'JenisDokumenController@index')->name('jenisdokumen.index');
+        Route::get('/create', 'JenisDokumenController@create')->name('jenisdokumen.create');
+        Route::post('/store', 'JenisDokumenController@store')->name('jenisdokumen.store');
+        Route::get('/{id}', 'JenisDokumenController@show')->name('jenisdokumen.show');
+        Route::get('/{id}/edit', 'JenisDokumenController@edit')->name('jenisdokumen.edit');
+        Route::put('/{id}/update', 'JenisDokumenController@update')->name('jenisdokumen.update');
+        Route::delete('/{id}/delete', 'JenisDokumenController@destroy')->name('jenisdokumen.destroy');
+    });
 });

@@ -1,24 +1,12 @@
 @extends('adminlte::page')
-@section('title', 'permohonan informasi')
-@section('plugins.Select2', true)
-@section('content_header')
-    <h1 class="m-0 text-dark"></h1>
-@stop
-
+@section('title', 'Kelola Permohonan Informasi (Admin)')
 @section('content')
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-body">
-            <!-- Header: Tombol Tambah -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <a href="{{ route('permohonaninformasi.create') }}" class="btn btn-primary">
-                    + Tambah
-                </a>
-            </div>
-            
-            <!-- Tabel Data Sambutan -->
+            <h5 class="mb-3">Daftar Permohonan Informasi (Admin)</h5>
             <div class="table-responsive">
-                <table id="example" class="table table-bordered table-striped align-middle">
+                <table class="table table-bordered table-striped align-middle">
                     <thead class="thead-light">
                         <tr>
                             <th style="width: 50px; text-align: center;">No</th>
@@ -30,7 +18,7 @@
                             <th>Informasi yang dibutuhkan</th>
                             <th>Alasan Permohonan</th>
                             <th>Status</th>
-                            <th style="width: 120px; text-align: center;">Aksi</th>
+                            <th style="width: 180px; text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,8 +44,9 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <a href="{{ route('permohonaninformasi.edit', $item->id) }}" class="btn btn-warning btn-sm mb-1">Edit</a>
-                                <form action="{{ route('permohonaninformasi.destroy', $item->id) }}" method="POST" class="d-inline">
+                                <a href="{{ route('datapemohon.show', $item->id) }}" class="btn btn-info btn-sm mb-1">Detail</a>
+                                <a href="{{ route('datapemohon.edit', $item->id) }}" class="btn btn-warning btn-sm mb-1">Edit</a>
+                                <form action="{{ route('datapemohon.destroy', $item->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')">Hapus</button>
@@ -76,24 +65,3 @@
     </div>
 </div>
 @endsection
-
-@section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
-@stop
-
-@push('js')
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            responsive: true,
-            autoWidth: false
-        });
-    });
-</script>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-"></script>
-<script src="bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-@endpush
