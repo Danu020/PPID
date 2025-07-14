@@ -20,7 +20,7 @@
                     <select name="jenis_dokumens_id" id="jenis_dokumens_id" class="form-control" required>
                         <option value="">- Pilih Jenis Dokumen -</option>
                         @foreach($jenis_dokumens as $jenis)
-                            <option value="{{ $jenis->id }}">{{ $jenis->nama_jenis }}</option>
+                            <option value="{{ $jenis->id }}">{{ $jenis->jenis_dokumen }}</option>
                         @endforeach
                     </select>
                 </div>
