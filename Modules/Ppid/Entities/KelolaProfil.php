@@ -5,7 +5,7 @@ namespace Modules\Ppid\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class kelola_profil extends Model
+class KelolaProfil extends Model
 {
     use HasFactory;
 
