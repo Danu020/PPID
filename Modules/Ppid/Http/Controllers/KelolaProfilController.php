@@ -5,75 +5,76 @@ namespace Modules\Ppid\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Ppid\Entities\KelolaProfil;
 
 class KelolaProfilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    // Tampilkan form kelola profil (edit/tambah)
     public function index()
     {
-        return view('ppid::index');
+        $kelola_profil = KelolaProfil::first();
+        return view('ppid::kelolaprofil.form', compact('kelola_profil'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
+    // Tampilkan form tambah profil
     public function create()
     {
-        return view('ppid::create');
+        return view('ppid::kelolaprofil.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
+    // Simpan data profil baru
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama_direktur' => 'required|string|max:255',
+            'sambutan' => 'required|string',
+            'media' => 'nullable|string',
+            'ppid' => 'nullable|string',
+            'foto_organisasi' => 'nullable|image|mimes:jpg,jpeg,png',
+            'tugas_fungsi' => 'nullable|string',
+            'visi' => 'nullable|string',
+            'misi' => 'nullable|string',
+        ]);
+        if ($request->hasFile('foto_organisasi')) {
+            $data['foto_organisasi'] = $request->file('foto_organisasi')->store('profil', 'public');
+        }
+        KelolaProfil::create($data);
+        return redirect()->route('kelolaprofil.index')->with('success', 'Profil berhasil disimpan.');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('ppid::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
+    // Tampilkan form edit profil
     public function edit($id)
     {
-        return view('ppid::edit');
+        $kelola_profil = KelolaProfil::findOrFail($id);
+        return view('ppid::kelolaprofil.form', compact('kelola_profil'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
+    // Update data profil
     public function update(Request $request, $id)
     {
-        //
+        $kelola_profil = KelolaProfil::findOrFail($id);
+        $data = $request->validate([
+            'nama_direktur' => 'required|string|max:255',
+            'sambutan' => 'required|string',
+            'media' => 'nullable|string',
+            'ppid' => 'nullable|string',
+            'foto_organisasi' => 'nullable|image|mimes:jpg,jpeg,png',
+            'tugas_fungsi' => 'nullable|string',
+            'visi' => 'nullable|string',
+            'misi' => 'nullable|string',
+        ]);
+        if ($request->hasFile('foto_organisasi')) {
+            $data['foto_organisasi'] = $request->file('foto_organisasi')->store('profil', 'public');
+        }
+        $kelola_profil->update($data);
+        return redirect()->route('kelolaprofil.index')->with('success', 'Profil berhasil diupdate.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
+    // Hapus data profil
     public function destroy($id)
     {
-        //
+        $kelola_profil = KelolaProfil::findOrFail($id);
+        $kelola_profil->delete();
+        return redirect()->route('kelolaprofil.index')->with('success', 'Profil berhasil dihapus.');
     }
 }

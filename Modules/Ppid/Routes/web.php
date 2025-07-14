@@ -91,4 +91,14 @@ Route::prefix('ppid')->group(function() {
         Route::put('/{id}/update', 'DatadokumenController@update')->name('datadokumen.update');
         Route::delete('/{id}/delete', 'DatadokumenController@destroy')->name('datadokumen.destroy');
     });
+
+    // Kelola Profil CRUD
+    Route::prefix('kelola-profil')->group(function () {
+        Route::get('/', 'KelolaProfilController@index')->name('kelolaprofil.index');
+        Route::get('/create', 'KelolaProfilController@create')->name('kelolaprofil.create');
+        Route::post('/store', 'KelolaProfilController@store')->name('kelolaprofil.store');
+        Route::get('/{id}/edit', 'KelolaProfilController@edit')->name('kelolaprofil.edit');
+        Route::put('/{id}/update', 'KelolaProfilController@update')->name('kelolaprofil.update');
+        Route::delete('/{id}/delete', 'KelolaProfilController@destroy')->name('kelolaprofil.destroy');
+    });
 });
