@@ -9,6 +9,7 @@ class JenisDokumen extends Model
 {
     use HasFactory;
 
+    protected $table = 'jenis_dokumens';
     protected $fillable = [
         'id',
         'jenis_dokumen',

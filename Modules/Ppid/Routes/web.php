@@ -101,4 +101,25 @@ Route::prefix('ppid')->group(function() {
         Route::put('/{id}/update', 'KelolaProfilController@update')->name('kelolaprofil.update');
         Route::delete('/{id}/delete', 'KelolaProfilController@destroy')->name('kelolaprofil.destroy');
     });
+
+    // Jenis Informasi CRUD
+    Route::prefix('jenis-informasi')->group(function () {
+        Route::get('/', 'JenisInformasiController@index')->name('jenisinformasi.index');
+        Route::get('/create', 'JenisInformasiController@create')->name('jenisinformasi.create');
+        Route::post('/store', 'JenisInformasiController@store')->name('jenisinformasi.store');
+        Route::get('/{id}', 'JenisInformasiController@show')->name('jenisinformasi.show');
+        Route::get('/{id}/edit', 'JenisInformasiController@edit')->name('jenisinformasi.edit');
+        Route::put('/{id}/update', 'JenisInformasiController@update')->name('jenisinformasi.update');
+        Route::delete('/{id}/delete', 'JenisInformasiController@destroy')->name('jenisinformasi.destroy');
+    });
+    // Data Informasi CRUD
+    Route::prefix('data-informasi')->group(function () {
+        Route::get('/', 'DataInformasiController@index')->name('datainformasi.index');
+        Route::get('/create', 'DataInformasiController@create')->name('datainformasi.create');
+        Route::post('/store', 'DataInformasiController@store')->name('datainformasi.store');
+        Route::get('/{id}', 'DataInformasiController@show')->name('datainformasi.show');
+        Route::get('/{id}/edit', 'DataInformasiController@edit')->name('datainformasi.edit');
+        Route::put('/{id}/update', 'DataInformasiController@update')->name('datainformasi.update');
+        Route::delete('/{id}/delete', 'DataInformasiController@destroy')->name('datainformasi.destroy');
+    });
 });
