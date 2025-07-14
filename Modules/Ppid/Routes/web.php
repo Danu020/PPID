@@ -17,46 +17,6 @@ use Modules\Ppid\Http\Controllers\PermohonaninformasiController;
 */
 
 Route::prefix('ppid')->group(function() {
-    
-    // Sambutan Direktur
-    Route::prefix('sambutan-direktur')->group(function() {
-        Route::get('/', 'SambutanController@index')->name('sambutan.index');
-        Route::get('/create', 'SambutanController@create')->name('sambutan.create');
-        Route::post('/store', 'SambutanController@store')->name('sambutan.store');
-        Route::get('/{id}/edit', 'SambutanController@edit')->name('sambutan.edit');
-        Route::put('/{id}/update', 'SambutanController@update')->name('sambutan.update');
-        Route::delete('/{id}/delete', 'SambutanController@destroy')->name('sambutan.destroy');
-    });
-    
-    // Profil Ppid
-    Route::prefix('profil-ppid')->group(function() {
-        Route::get('/', 'ProfilppidController@index')->name('profilppid.index');
-        Route::get('/create', 'ProfilppidController@create')->name('profilppid.create');
-        Route::post('/store', 'ProfilppidController@store')->name('profilppid.store');
-        Route::get('/{id}/edit', 'ProfilppidController@edit')->name('profilppid.edit');
-        Route::put('/{id}/update', 'ProfilppidController@update')->name('profilppid.update');
-        Route::delete('/{id}/delete', 'ProfilppidController@destroy')->name('profilppid.destroy');
-    });
-
-    // Struktur Organisasi
-    Route::prefix('struktur-organisasi')->group(function () {
-        Route::get('/', 'StrukturorganisasiController@index')->name('struktur.index');
-        Route::get('/create', 'StrukturorganisasiController@create')->name('struktur.create');
-        Route::post('/store', 'StrukturorganisasiController@store')->name('struktur.store');
-        Route::get('/{id}/edit', 'StrukturorganisasiController@edit')->name('struktur.edit');
-        Route::put('/{id}/update', 'StrukturorganisasiController@update')->name('struktur.update');
-        Route::delete('/{id}/delete', 'StrukturorganisasiController@destroy')->name('struktur.destroy');
-    });
-
-    // Tugas dan Fungsi
-    Route::prefix('tugas-dan-fungsi')->group(function () {
-        Route::get('/', 'TugasdanfungsiController@index')->name('tugasdanfungsi.index');
-        Route::get('/create', 'TugasdanfungsiController@create')->name('tugasdanfungsi.create');
-        Route::post('/store', 'TugasdanfungsiController@store')->name('tugasdanfungsi.store');
-        Route::get('/{id}/edit', 'TugasdanfungsiController@edit')->name('tugasdanfungsi.edit');
-        Route::put('/{id}/update', 'TugasdanfungsiController@update')->name('tugasdanfungsi.update');
-        Route::delete('/{id}/delete', 'TugasdanfungsiController@destroy')->name('tugasdanfungsi.destroy');
-    });
 
     // Permohonan Informasi
     Route::prefix('pemohon')->group(function () {
@@ -120,5 +80,25 @@ Route::prefix('ppid')->group(function() {
         Route::get('/{id}/edit', 'JenisDokumenController@edit')->name('jenisdokumen.edit');
         Route::put('/{id}/update', 'JenisDokumenController@update')->name('jenisdokumen.update');
         Route::delete('/{id}/delete', 'JenisDokumenController@destroy')->name('jenisdokumen.destroy');
+    });
+
+    // Data Dokumen CRUD
+    Route::prefix('data-dokumen')->group(function () {
+        Route::get('/', 'DatadokumenController@index')->name('datadokumen.index');
+        Route::get('/create', 'DatadokumenController@create')->name('datadokumen.create');
+        Route::post('/store', 'DatadokumenController@store')->name('datadokumen.store');
+        Route::get('/{id}/edit', 'DatadokumenController@edit')->name('datadokumen.edit');
+        Route::put('/{id}/update', 'DatadokumenController@update')->name('datadokumen.update');
+        Route::delete('/{id}/delete', 'DatadokumenController@destroy')->name('datadokumen.destroy');
+    });
+
+    // Kelola Profil CRUD
+    Route::prefix('kelola-profil')->group(function () {
+        Route::get('/', 'KelolaProfilController@index')->name('kelolaprofil.index');
+        Route::get('/create', 'KelolaProfilController@create')->name('kelolaprofil.create');
+        Route::post('/store', 'KelolaProfilController@store')->name('kelolaprofil.store');
+        Route::get('/{id}/edit', 'KelolaProfilController@edit')->name('kelolaprofil.edit');
+        Route::put('/{id}/update', 'KelolaProfilController@update')->name('kelolaprofil.update');
+        Route::delete('/{id}/delete', 'KelolaProfilController@destroy')->name('kelolaprofil.destroy');
     });
 });
