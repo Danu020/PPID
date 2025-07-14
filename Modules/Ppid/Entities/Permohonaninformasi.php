@@ -11,7 +11,6 @@ class Permohonaninformasi extends Model
 
     protected $table = 'permohonaninformasi';
     protected $fillable = [
-        'id',
         'nama_pemohon',
         'nik',
         'alamat_pemohon',

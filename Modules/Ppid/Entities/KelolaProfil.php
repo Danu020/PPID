@@ -9,6 +9,7 @@ class KelolaProfil extends Model
 {
     use HasFactory;
 
+    protected $table = 'kelola_profils';
     protected $fillable = [
         'nama_direktur',
         'sambutan',

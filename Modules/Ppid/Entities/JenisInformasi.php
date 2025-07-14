@@ -5,12 +5,12 @@ namespace Modules\Ppid\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class JenisPermohonan extends Model
+class JenisInformasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'jenis_permohonans';
+    protected $table = 'jenis_informasis';
     protected $fillable = [
-        'jenis_permohonan',
+        'jenis_informasi',
     ];
 }

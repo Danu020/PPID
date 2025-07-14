@@ -27,7 +27,7 @@
                             <td>{{ $item->jenisDokumens->jenis_dokumen ?? '-' }}</td>
                             <td>
                                 @if($item->file_path)
-                                    <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank">Download</a>
+                                    <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank">Lihat File</a>
                                 @else
                                     -
                                 @endif

@@ -28,61 +28,6 @@ class MenuModulPpidTableSeeder extends Seeder
             'parent_id' => 0,
             'active' => serialize(['ppid/kelola-profil', 'ppid/kelola-profil*']),
         ]);
-        // Menu::create([
-        //     'modul' => 'Ppid',
-        //     'label' => 'Sambutan Direktur',
-        //     'url' => 'ppid/sambutan-direktur',
-        //     // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-        //     'can' => serialize(['admin']),
-        //     'icon' => 'far fa-circle',
-        //     'urut' => 1,
-        //     'parent_id' => $menu->id,
-        //     'active' => serialize(['ppid/sambutan-direktur', 'ppid/sambutan-direktur*']),]);
-
-        // Menu::create([
-        //     'modul' => 'Ppid',
-        //     'label' => 'Profil PPID',
-        //     'url' => 'ppid/profil-ppid',
-        //     // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-        //     'can' => serialize(['admin']),
-        //     'icon' => 'far fa-circle',
-        //     'urut' => 1,
-        //     'parent_id' => $menu->id,
-        //     'active' => serialize(['ppid/profil-ppid', 'ppid/profil-ppid*']),]);
-
-        // Menu::create([
-        //     'modul' => 'Ppid',
-        //     'label' => 'Struktur Organisasi',
-        //     'url' => 'ppid/struktur-organisasi',
-        //     // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-        //     'can' => serialize(['admin']),
-        //     'icon' => 'far fa-circle',
-        //     'urut' => 1,
-        //     'parent_id' => $menu->id,
-        //     'active' => serialize(['ppid/struktur-organisasi', 'ppid/struktur-organisasi*']),]);
-
-        // Menu::create([
-        //     'modul' => 'Ppid',
-        //     'label' => 'Tugas dan Fungsi',
-        //     'url' => 'ppid/tugas-dan-fungsi',
-        //     // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-        //     'can' => serialize(['admin']),
-        //     'icon' => 'far fa-circle',
-        //     'urut' => 1,
-        //     'parent_id' => $menu->id,
-        //     'active' => serialize(['ppid/tugas-dan-fungsi', 'ppid/tugas-dan-fungsi*']),]);
-
-        // Menu::create([
-        //     'modul' => 'Ppid',
-        //     'label' => 'Visi dan Misi',
-        //     'url' => 'ppid/visi-dan-misi',
-        //     // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-        //     'can' => serialize(['admin']),
-        //     'icon' => 'far fa-circle',
-        //     'urut' => 1,
-        //     'parent_id' => $menu->id,
-        //     'active' => serialize(['ppid/visi-dan-misi', 'ppid/visi-dan-misi*']),]);       
-        // // $this->call("OthersTableSeeder");
 
         $menu =  Menu::create([
             'modul' => 'Ppid',
