@@ -16,7 +16,7 @@ class CreateKelolaProfilsTable extends Migration
         Schema::create('kelola_profils', function (Blueprint $table) {
             $table->id();
             $table->string('nama_direktur');
-            $table->string('sambutan');
+            $table->text('sambutan');
             $table->string('media');
             $table->text('ppid');
             $table->string('foto_organisasi');

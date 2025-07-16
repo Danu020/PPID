@@ -19,12 +19,25 @@
                     <textarea name="sambutan" id="sambutan" class="form-control" required>{{ old('sambutan', $kelola_profil->sambutan ?? '') }}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="media" class="form-label">Media</label>
-                    <input type="text" name="media" id="media" class="form-control" value="{{ old('media', $kelola_profil->media ?? '') }}">
+                    <label for="media" class="form-label">Media (Foto/Video)</label>
+                    <input type="file" name="media" id="media" class="form-control" accept="image/*,video/*">
+                    @if(isset($kelola_profil) && $kelola_profil->media)
+                        <small>File saat ini: <a href="{{ asset('storage/' . $kelola_profil->media) }}" target="_blank">Lihat Media</a></small>
+                        @php
+                            $ext = pathinfo($kelola_profil->media, PATHINFO_EXTENSION);
+                        @endphp
+                        @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif','webp']))
+                            <div class="mt-2"><img src="{{ asset('storage/' . $kelola_profil->media) }}" alt="Media" style="max-width:200px;"></div>
+                        @elseif(in_array(strtolower($ext), ['mp4','webm','ogg','mov']))
+                            <div class="mt-2">
+                                <video src="{{ asset('storage/' . $kelola_profil->media) }}" controls style="max-width:200px;"></video>
+                            </div>
+                        @endif
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label for="ppid" class="form-label">PPID</label>
-                    <input type="text" name="ppid" id="ppid" class="form-control" value="{{ old('ppid', $kelola_profil->ppid ?? '') }}">
+                    <textarea name="ppid" id="ppid" class="form-control">{{ old('ppid', $kelola_profil->ppid ?? '') }}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="foto_organisasi" class="form-label">Foto Organisasi</label>
@@ -39,7 +52,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="visi" class="form-label">Visi</label>
-                    <input type="text" name="visi" id="visi" class="form-control" value="{{ old('visi', $kelola_profil->visi ?? '') }}">
+                    <textarea name="visi" id="visi" class="form-control">{{ old('visi', $kelola_profil->visi ?? '') }}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="misi" class="form-label">Misi</label>
