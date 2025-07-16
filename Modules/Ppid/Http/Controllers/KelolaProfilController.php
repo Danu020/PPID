@@ -28,7 +28,7 @@ class KelolaProfilController extends Controller
         $data = $request->validate([
             'nama_direktur' => 'required|string|max:255',
             'sambutan' => 'required|string',
-            'media' => 'nullable|string',
+            'media' => 'nullable|image|mimes:jpg,jpeg,png',
             'ppid' => 'nullable|string',
             'foto_organisasi' => 'nullable|image|mimes:jpg,jpeg,png',
             'tugas_fungsi' => 'nullable|string',
@@ -56,7 +56,7 @@ class KelolaProfilController extends Controller
         $data = $request->validate([
             'nama_direktur' => 'required|string|max:255',
             'sambutan' => 'required|string',
-            'media' => 'nullable|string',
+            'media' => 'nullable|image|mimes:jpg,jpeg,png',
             'ppid' => 'nullable|string',
             'foto_organisasi' => 'nullable|image|mimes:jpg,jpeg,png',
             'tugas_fungsi' => 'nullable|string',
