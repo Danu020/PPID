@@ -19,5 +19,7 @@ class Permohonaninformasi extends Model
         'informasi_yang_dibutuhkan',
         'alasan_permohonan',
         'status',
+        'file',
+        'catatan',
     ];
 }
