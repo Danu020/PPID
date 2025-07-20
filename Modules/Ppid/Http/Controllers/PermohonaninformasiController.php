@@ -27,18 +27,6 @@ class PermohonaninformasiController extends Controller
         return view('ppid::pemohon.index', compact('permohonaninformasi'));
     }
 
-    // Untuk admin (tampilan admin)
-    public function adminIndex(Request $request)
-    {
-        $search = $request->input('search');
-        $permohonaninformasi = Permohonaninformasi::when($search, function ($query, $search) {
-            return $query->where('nama_pemohon', 'like', "%{$search}%")
-                         ->orWhere('nik', 'like', "%{$search}%");
-        })->get();
-        return view('ppid::datapemohon.index', compact('datapemohon'));
-    }
-
-
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -49,7 +37,7 @@ class PermohonaninformasiController extends Controller
         if ($request->route()->getName() === 'datapemohon.create') {
             return view('ppid::datapemohon.create');
         }
-        return view('ppid::permohonaninformasi.add');
+        return view('ppid::pemohon.add');
     }
 
     /**
@@ -92,7 +80,8 @@ class PermohonaninformasiController extends Controller
      */
     public function show($id)
     {
-        return view('ppid::show');
+        $permohonaninformasi = Permohonaninformasi::findOrFail($id);
+        return view('ppid::pemohon.show', compact('permohonaninformasi'));
     }
 
     /**
@@ -106,7 +95,7 @@ class PermohonaninformasiController extends Controller
         if ($request->route()->getName() === 'datapemohon.edit') {
             return view('ppid::datapemohon.edit', compact('permohonaninformasi'));
         }
-        return view('ppid::permohonaninformasi.edit', compact('permohonaninformasi'));
+        return view('ppid::pemohon.edit', compact('permohonaninformasi'));
     }
 
     /**
@@ -132,7 +121,7 @@ class PermohonaninformasiController extends Controller
         if ($request->route()->getName() === 'datapemohon.update') {
             return redirect()->route('datapemohon.index')->with('success', 'Data berhasil diperbarui');
         }
-        return redirect()->route('permohonaninformasi.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('pemohon.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**
@@ -147,6 +136,6 @@ class PermohonaninformasiController extends Controller
         if ($request->route()->getName() === 'datapemohon.destroy') {
             return redirect()->route('datapemohon.index')->with('success', 'Data berhasil dihapus');
         }
-        return redirect()->route('permohonaninformasi.index')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('pemohon.index')->with('success', 'Data berhasil dihapus');
     }
 }

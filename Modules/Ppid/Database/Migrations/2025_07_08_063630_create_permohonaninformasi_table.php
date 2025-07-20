@@ -23,7 +23,6 @@ class CreatePermohonaninformasiTable extends Migration
             $table->string('informasi_yang_dibutuhkan');
             $table->string('alasan_permohonan');
             $table->string('status')->default('menunggu');
-            $table->foreignId('jenis_permohonan_id')->constrained('jenis_permohonans')->onDelete('cascade');
             $table->timestamps();
         });
     }

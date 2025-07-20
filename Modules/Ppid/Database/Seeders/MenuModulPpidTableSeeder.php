@@ -157,7 +157,7 @@ class MenuModulPpidTableSeeder extends Seeder
             'label' => 'Permohonan Informasi',
             'url' => 'ppid/pemohon',
             // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-            'can' => serialize(['terdaftar']),
+            'can' => serialize(['admin']),
             'icon' => 'fas fa-clipboard',
             'urut' => 1,
             'parent_id' => 0,
