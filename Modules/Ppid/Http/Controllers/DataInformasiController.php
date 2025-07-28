@@ -37,12 +37,32 @@ class DataInformasiController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'nama_informasi' => 'required|string|max:255',
             'jenis_informasi_id' => 'required|exists:jenis_informasis,id',
-            'link' => 'nullable|url',
+            'jenis' => 'required|in:Link,Dokumen',
+            'link' => 'required_if:jenis,Link|nullable|url',
+            'dokumen' => 'required_if:jenis,Dokumen|nullable|mimes:pdf|max:2048',
         ]);
-        DataInformasi::create($data);
+
+        $finalLink = null;
+
+        if ($request->jenis === 'Dokumen' && $request->hasFile('dokumen')) {
+            $file = $request->file('dokumen');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/dokumen', $filename);
+            $finalLink = 'storage/dokumen/' . $filename;
+        } elseif ($request->jenis === 'Link') {
+            $finalLink = $request->link;
+        }
+
+        DataInformasi::create([
+            'nama_informasi' => $request->nama_informasi,
+            'jenis_informasi_id' => $request->jenis_informasi_id,
+            'jenis' => $request->jenis,
+            'link' => $finalLink,
+        ]);
+
         return redirect()->route('datainformasi.index')->with('success', 'Data Informasi berhasil ditambahkan.');
     }
 
@@ -67,12 +87,43 @@ class DataInformasiController extends Controller
     public function update(Request $request, $id)
     {
         $data_informasi = DataInformasi::findOrFail($id);
-        $data = $request->validate([
+
+        $request->validate([
             'nama_informasi' => 'required|string|max:255',
             'jenis_informasi_id' => 'required|exists:jenis_informasis,id',
-            'link' => 'nullable|url',
+            'jenis' => 'required|in:Link,Dokumen',
+            'link' => 'required_if:jenis,Link|nullable|url',
+            'dokumen' => 'required_if:jenis,Dokumen|nullable|mimes:pdf|max:2048',
         ]);
-        $data_informasi->update($data);
+
+        $finalLink = $data_informasi->link;
+
+        if ($request->jenis === 'Dokumen' && $request->hasFile('dokumen')) {
+            // Hapus dokumen lama jika ada
+            if ($data_informasi->jenis === 'Dokumen' && $data_informasi->link && file_exists(public_path($data_informasi->link))) {
+                unlink(public_path($data_informasi->link));
+            }
+
+            $file = $request->file('dokumen');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/dokumen', $filename);
+            $finalLink = 'storage/dokumen/' . $filename;
+        } elseif ($request->jenis === 'Link') {
+            // Hapus file jika sebelumnya adalah dokumen
+            if ($data_informasi->jenis === 'Dokumen' && $data_informasi->link && file_exists(public_path($data_informasi->link))) {
+                unlink(public_path($data_informasi->link));
+            }
+
+            $finalLink = $request->link;
+        }
+
+        $data_informasi->update([
+            'nama_informasi' => $request->nama_informasi,
+            'jenis_informasi_id' => $request->jenis_informasi_id,
+            'jenis' => $request->jenis,
+            'link' => $finalLink,
+        ]);
+
         return redirect()->route('datainformasi.index')->with('success', 'Data Informasi berhasil diupdate.');
     }
 
@@ -84,6 +135,12 @@ class DataInformasiController extends Controller
     public function destroy($id)
     {
         $data_informasi = DataInformasi::findOrFail($id);
+
+        // Hapus file jika datanya bertipe Dokumen
+        if ($data_informasi->jenis === 'Dokumen' && $data_informasi->link && file_exists(public_path($data_informasi->link))) {
+            unlink(public_path($data_informasi->link));
+        }
+
         $data_informasi->delete();
         return redirect()->route('datainformasi.index')->with('success', 'Data Informasi berhasil dihapus.');
     }

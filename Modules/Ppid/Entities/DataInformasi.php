@@ -13,6 +13,7 @@ class DataInformasi extends Model
     protected $fillable = [
         'nama_informasi',
         'jenis_informasi_id',
+        'jenis',
         'link',
     ];
 
