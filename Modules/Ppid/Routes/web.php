@@ -15,7 +15,58 @@ use Modules\Ppid\Http\Controllers\PermohonaninformasiController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get("/", "LandingPageController@index")->name('home');
 
+Route::prefix("informasi-publik")->group(function () {
+    Route::prefix("regulasi")->group(function () {
+        Route::get("/", "LandingPageController@regulasiIndex")->name('publik.i-regulasi.index');
+    });
+    Route::prefix("daftar")->group(function () {
+        Route::get("/", "LandingPageController@informasiPublikIndex")->name('publik.i-publik.index');
+    });
+    Route::prefix("dikecualikan")->group(function () {
+        Route::get("/", "LandingPageController@informasiDikecualikanIndex")->name('publik.i-dikecualikan.index');
+    });
+    Route::prefix("setiap-saat")->group(function () {
+        Route::get("/", "LandingPageController@informasiSetiapSaatIndex")->name('publik.i-setiap-saat.index');
+    });
+    Route::prefix("berkala")->group(function () {
+        Route::get("/", "LandingPageController@informasiBerkalaIndex")->name('publik.i-berkala.index');
+    });
+    Route::prefix("serta-merta")->group(function () {
+        Route::get("/", "LandingPageController@informasiSertaMertaIndex")->name('publik.i-serta-merta.index');
+    });
+});
+
+Route::prefix("layanan")->group(function () {
+    Route::prefix("maklumat-layanan")->group(function () {
+        Route::get("/", "LandingPageController@maklumatPelayananIndex")->name('publik.l-maklumat.index');
+    });
+    Route::prefix("standar-layanan")->group(function () {
+        Route::get("/", "LandingPageController@standarPelayananIndex")->name('publik.l-standar.index');
+    });
+    Route::prefix("prosedur-permohonan-informasi")->group(function () {
+        Route::get("/", "LandingPageController@prosedurPermohonanInformasiIndex")->name('publik.l-permohonan-informasi.index');
+    });
+    Route::prefix("prosedur-keberatan-informasi")->group(function () {
+        Route::get("/", "LandingPageController@prosedurKeberatanInformasiIndex")->name('publik.l-permohonan-keberatan.index');
+    });
+    Route::prefix("prosedur-penyelesaian-sengketa")->group(function () {
+        Route::get("/", "LandingPageController@prosedurPenyelesaianSengketaIndex")->name('publik.l-permohonan-sengketa.index');
+    });
+});
+
+Route::prefix("publikasi")->group(function () {
+    Route::prefix("berita")->group(function () {
+        Route::get("/", "LandingPageController@beritaIndex")->name('publikasi.berita.index');
+        Route::get("/{id}", "LandingPageController@beritaDetail")->name('publikasi.berita.show');
+    });
+    Route::prefix("pengumuman")->group(function () {
+        Route::get("/", "LandingPageController@pengumumanIndex")->name('publikasi.pengumuman.index');
+        Route::get("/{id}", "LandingPageController@pengumumanDetail")->name('publikasi.pengumuman.show');
+    });
+        
+});
 Route::prefix('ppid')->group(function() {
 
     // Permohonan Informasi
