@@ -9,11 +9,11 @@
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
                 Regulasi
             </h1>
-            <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            {{-- <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex eligendi exercitationem laboriosam ipsa quae
                 repellendus, voluptates error velit, impedit officia ratione laudantium consequatur et optio est voluptate
                 quod cum corporis.
-            </p>
+            </p> --}}
         </div>
     </section>
 

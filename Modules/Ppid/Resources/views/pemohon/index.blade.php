@@ -27,8 +27,9 @@
                             <th>Alamat Pemohon</th>
                             <th>Nomor Telepon</th>
                             <th>Email</th>
-                            <th>Informasi yang dibutuhkan</th>
-                            <th>Alasan Permohonan</th>
+                            <th>Jenis Permohonan</th>
+                            {{-- <th>Informasi yang dibutuhkan</th>
+                            <th>Alasan Permohonan</th> --}}
                             <th>Status</th>
                             <th style="width: 120px; text-align: center;">Aksi</th>
                         </tr>
@@ -42,8 +43,9 @@
                             <td>{{ $item->alamat_pemohon }}</td>
                             <td>{{ $item->nomor_telepon }}</td>
                             <td>{{ $item->email }}</td>
-                            <td>{{ $item->informasi_yang_dibutuhkan }}</td>
-                            <td>{{ $item->alasan_permohonan }}</td>
+                            <td>{{ $item->jenisPermohonan->jenis_permohonan ?? 'Tidak Diketahui' }}</td>
+                            {{-- <td>{{ $item->informasi_yang_dibutuhkan }}</td>
+                            <td>{{ $item->alasan_permohonan }}</td> --}}
                             <td>
                                 @if($item->status == 'menunggu')
                                     <span class="badge bg-warning text-dark">Menunggu</span>
@@ -51,8 +53,8 @@
                                     <span class="badge bg-primary">Diproses</span>
                                 @elseif($item->status == 'ditolak')
                                     <span class="badge bg-danger">Ditolak</span>
-                                @elseif($item->status == 'diterima')
-                                    <span class="badge bg-success">Diterima</span>
+                                @elseif($item->status == 'disetujui')
+                                    <span class="badge bg-success">Disetujui</span>
                                 @endif
                             </td>
                             <td class="text-center">

@@ -30,6 +30,14 @@
                     <input type="email" name="email" class="form-control" value="{{ old('email', $permohonaninformasi->email ?? '') }}" required>
                 </div>
                 <div class="mb-3">
+                    <label>Jenis Permohonan</label>
+                    <select name="jenis_permohonan_id" class="form-control select2" required>
+                        <option value="">Pilih Jenis Permohonan</option>
+                        @foreach($jenis_permohonan as $jenis)
+                            <option value="{{ $jenis->id }}">{{ $jenis->jenis_permohonan }}</option>
+                        @endforeach
+                    </select>
+                <div class="mb-3">
                     <label>Informasi yang Dibutuhkan</label>
                     <textarea name="informasi_yang_dibutuhkan" class="form-control" required>{{ old('informasi_yang_dibutuhkan', $permohonaninformasi->informasi_yang_dibutuhkan ?? '') }}</textarea>
                 </div>

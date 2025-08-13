@@ -63,14 +63,16 @@ class MenusController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'modul' => 'reqiered',
             'can' => 'required',
             'icon' => 'required',
         ]);
-       
+
         $active="";
         if($request->url!="")$active=serialize([$request->url,$request->url."*"]);
         $menu = Menu::create([
             'label' => $request->name,
+            'modul' => $request->modul,
             'url' => $request->url,
             'can' => serialize($request->can),
             'icon' => $request->icon,

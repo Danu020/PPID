@@ -10,9 +10,7 @@
                 Informasi Setiap Saat
             </h1>
             <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium atque recusandae nulla, quidem odio
-                deserunt corrupti provident tenetur suscipit maxime officia, minus illum sunt expedita hic eos qui fugiat
-                necessitatibus?
+                Informasi Publik yang Wajib Tersedia Setiap Saat oleh PPID Politeknik Negeri Banyuwangi
             </p>
         </div>
     </section>
@@ -170,11 +168,11 @@
                                                 style="background-color: #004878;">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    {{-- <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                    </path>
+                                                    </path> --}}
                                                 </svg>
-                                                Unduh
+                                                Lihat Informasi
                                             </a>
                                         @else
                                             <span

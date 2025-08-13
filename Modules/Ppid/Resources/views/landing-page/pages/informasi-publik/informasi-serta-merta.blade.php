@@ -10,9 +10,7 @@
                 Informasi Serta-Merta
             </h1>
             <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex eligendi exercitationem laboriosam ipsa quae
-                repellendus, voluptates error velit, impedit officia ratione laudantium consequatur et optio est voluptate
-                quod cum corporis.
+                Informasi publik yang wajib diumumkan secara serta-merta oleh PPID Politeknik Negeri Banyuwangi
             </p>
         </div>
     </section>
@@ -174,7 +172,7 @@
                                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                                     </path>
                                                 </svg>
-                                                Unduh
+                                                Lihat Informasi
                                             </a>
                                         @else
                                             <span

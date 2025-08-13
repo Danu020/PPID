@@ -9,11 +9,11 @@
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
                 Berita PPID
             </h1>
-            <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            {{-- <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate fugit eius hic repellat est veniam
                 perferendis sunt, placeat deserunt odit, dolorem, quibusdam aspernatur? Nam fuga labore molestias?
                 Accusantium, vero! Officiis?
-            </p>
+            </p> --}}
         </div>
     </section>
 

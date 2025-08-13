@@ -7,13 +7,13 @@
     <section class="py-20" style="background: linear-gradient(135deg, var(--primary-blue) 0%, #0066a3 100%);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
-                Maklumat Pelayanan
+                Maklumat Layanan
             </h1>
-            <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            {{-- <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi voluptatem aliquam, ipsam quos sapiente
                 facilis architecto delectus repellat? Velit unde repellat pariatur assumenda labore quis accusamus rerum,
                 quos quo quibusdam.
-            </p>
+            </p> --}}
         </div>
     </section>
 

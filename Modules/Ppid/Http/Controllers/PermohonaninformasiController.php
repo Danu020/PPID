@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Ppid\Entities\Permohonaninformasi;
+use Modules\Ppid\Entities\JenisPermohonan;
+use Illuminate\Support\Facades\Storage;
 
 class PermohonaninformasiController extends Controller
 {
@@ -13,17 +15,10 @@ class PermohonaninformasiController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    // Untuk pengguna (user biasa)
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->input('search');
-        $permohonaninformasi = Permohonaninformasi::when($search, function ($query, $search) {
-            return $query->where('nama_pemohon', 'like', "%{$search}%")
-                         ->orWhere('nik', 'like', "%{$search}%");
-        })
-        // filter hanya data milik user jika ada sistem user_id, contoh:
-        // ->where('user_id', auth()->id())
-        ->get();
+        $permohonaninformasi = Permohonaninformasi::with('jenisPermohonan')->latest()->get();
+
         return view('ppid::pemohon.index', compact('permohonaninformasi'));
     }
 
@@ -31,13 +26,14 @@ class PermohonaninformasiController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create(Request $request)
+    public function create()
     {
-        // Jika route berasal dari datapemohon, gunakan view datapemohon
-        if ($request->route()->getName() === 'datapemohon.create') {
-            return view('ppid::datapemohon.create');
-        }
-        return view('ppid::pemohon.add');
+        // if (auth()->user()->role !== 'masyarakat') {
+        //     abort(403, 'anda tidak memiliki akses untuk membuat permohonan informasi.');
+        // }
+        $jenis_permohonan = JenisPermohonan::all();
+
+        return view('ppid::pemohon.add', compact('jenis_permohonan'));
     }
 
     /**
@@ -47,15 +43,27 @@ class PermohonaninformasiController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // if (auth()->user()->role !== 'masyarakat') {
+        //     abort(403, 'Anda tidak memiliki akses untuk membuat permohonan informasi.');
+        // }
+
+         $request->validate([
             'nama_pemohon' => 'required|string|max:255',
             'nik' => 'required|string|max:20',
             'alamat_pemohon' => 'required|string',
-            'nomor_telepon' => 'required|string|max:20',
+            'nomor_telepon' => 'required|string|max:15',
             'email' => 'required|email',
             'informasi_yang_dibutuhkan' => 'required|string',
             'alasan_permohonan' => 'required|string',
+            'jenis_permohonan_id' => 'required|exists:jenis_permohonans,id',
+            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // Optional file validation
+            'catatan' => 'nullable|string|max:500',
         ]);
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('permohonan_files', 'public');
+            $request->merge(['file' => $filePath]);
+        }
+
         Permohonaninformasi::create([
             'nama_pemohon' => $request->nama_pemohon,
             'nik' => $request->nik,
@@ -64,13 +72,11 @@ class PermohonaninformasiController extends Controller
             'email' => $request->email,
             'informasi_yang_dibutuhkan' => $request->informasi_yang_dibutuhkan,
             'alasan_permohonan' => $request->alasan_permohonan,
-            'status' => 'menunggu', // default saat input
+            'jenis_permohonan_id' => $request->jenis_permohonan_id,
+            'status' => 'menunggu',
         ]);
-        // Redirect sesuai asal route
-        if ($request->route()->getName() === 'datapemohon.store') {
-            return redirect()->route('datapemohon.index')->with('success', 'Data berhasil ditambahkan.');
-        }
-        return redirect()->route('permohonaninformasi.index')->with('success', 'Data berhasil ditambahkan.');
+
+        return redirect()->route('permohonaninformasi.index')->with('success', 'Permohonan informasi berhasil dibuat.');
     }
 
     /**
@@ -80,7 +86,8 @@ class PermohonaninformasiController extends Controller
      */
     public function show($id)
     {
-        $permohonaninformasi = Permohonaninformasi::findOrFail($id);
+        $permohonaninformasi = Permohonaninformasi::with('jenisPermohonan')->findOrFail($id);
+
         return view('ppid::pemohon.show', compact('permohonaninformasi'));
     }
 
@@ -89,13 +96,15 @@ class PermohonaninformasiController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $permohonaninformasi = Permohonaninformasi::findOrFail($id);
-        if ($request->route()->getName() === 'datapemohon.edit') {
-            return view('ppid::datapemohon.edit', compact('permohonaninformasi'));
-        }
-        return view('ppid::pemohon.edit', compact('permohonaninformasi'));
+        // if (auth()->user()->role !== 'masrayakat' || auth()->id() !== $permohonaninformasi->user_id) {
+        //     abort(403, 'Anda tidak memiliki akses untuk mengedit permohonan informasi.');
+        // }
+        $jenis_permohonan = JenisPermohonan::all();
+
+        return view('ppid::pemohon.edit', compact('permohonaninformasi', 'jenis_permohonan'));
     }
 
     /**
@@ -110,18 +119,26 @@ class PermohonaninformasiController extends Controller
             'nama_pemohon' => 'required|string|max:255',
             'nik' => 'required|string|max:20',
             'alamat_pemohon' => 'required|string',
-            'nomor_telepon' => 'required|string|max:20',
+            'nomor_telepon' => 'required|string|max:15',
             'email' => 'required|email',
             'informasi_yang_dibutuhkan' => 'required|string',
             'alasan_permohonan' => 'required|string',
-            'status' => 'required|string|in:menunggu,diproses,ditolak,diterima'
+            'jenis_permohonan_id' => 'required|exists:jenis_permohonans,id',
+            'status' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // Optional file validation
+            'catatan' => 'nullable|string|max:500',
         ]);
-        $permohonaninformasi = Permohonaninformasi::findOrFail($id);
-        $permohonaninformasi->update($request->all());
-        if ($request->route()->getName() === 'datapemohon.update') {
-            return redirect()->route('datapemohon.index')->with('success', 'Data berhasil diperbarui');
+        $permohonan = Permohonaninformasi::findOrFail($id);
+        $data = $request->except('file');
+        if ($request->hasfile('file')) {
+            if ($request->file && Storage::disk('public')->exists($permohonan->file)) {
+                Storage::disk('public')->delete($permohonan->file);
+            }          
+            $data['file'] = $request->file('file')->store('permohonan_files', 'public');
         }
-        return redirect()->route('pemohon.index')->with('success', 'Data berhasil diperbarui');
+        $permohonan->update($data);
+
+        return redirect()->route('permohonaninformasi.index')->with('success', 'Permohonan informasi berhasil diperbarui.');
     }
 
     /**
@@ -129,13 +146,11 @@ class PermohonaninformasiController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $permohonaninformasi = Permohonaninformasi::findOrFail($id);
-        $permohonaninformasi->delete();
-        if ($request->route()->getName() === 'datapemohon.destroy') {
-            return redirect()->route('datapemohon.index')->with('success', 'Data berhasil dihapus');
-        }
-        return redirect()->route('pemohon.index')->with('success', 'Data berhasil dihapus');
+        $permohonan = Permohonaninformasi::findOrFail($id);
+        $permohonan->delete();
+
+        return redirect()->route('pemohon.index')->with('success', 'Permohonan informasi berhasil dihapus.');
     }
 }
