@@ -9,11 +9,11 @@
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
                 Standar Layanan
             </h1>
-            <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            {{-- <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus distinctio, autem qui doloribus vel nobis
                 quidem, neque, illum quam officiis omnis voluptatibus voluptatem numquam quae laborum explicabo impedit
                 deleniti eaque.
-            </p>
+            </p> --}}
         </div>
     </section>
 

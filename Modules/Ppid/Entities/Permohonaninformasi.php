@@ -5,11 +5,10 @@ namespace Modules\Ppid\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Permohonaninformasi extends Model
+class permohonaninformasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'permohonaninformasi';
     protected $fillable = [
         'nama_pemohon',
         'nik',
@@ -18,8 +17,15 @@ class Permohonaninformasi extends Model
         'email',
         'informasi_yang_dibutuhkan',
         'alasan_permohonan',
+        'jenis_permohonan_id',
         'status',
         'file',
         'catatan',
     ];
+
+    public function jenisPermohonan()
+    {
+        return $this->belongsTo(JenisPermohonan::class, 'jenis_permohonan_id');
+    }
+
 }

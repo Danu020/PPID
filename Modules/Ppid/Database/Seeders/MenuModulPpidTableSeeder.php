@@ -116,17 +116,40 @@ class MenuModulPpidTableSeeder extends Seeder
             'urut' => 1,
             'parent_id' => $menu->id,
             'active' => serialize(['ppid/jenis-permohonan', 'ppid/jenis-permohonan*']),]);
-        
-        Menu::create([
+
+        // Menu::create([
+        //     'modul' => 'Ppid',
+        //     'label' => 'Permohonan Informasi',
+        //     'url' => 'ppid/pemohon',
+        //     // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
+        //     'can' => serialize(['admin', 'masrayakat']),
+        //     'icon' => 'far fa-circle',
+        //     'urut' => 1,
+        //     'parent_id' => $menu->id,
+        //     'active' => serialize(['ppid/pemohon', 'ppid/pemohon*']),]);
+
+        $menu = Menu::create([
             'modul' => 'Ppid',
-            'label' => 'Data Pemohon',
-            'url' => 'ppid/data-pemohon',
+            'label' => 'Permohonan Informasi',
+            'url' => 'ppid/pemohon',
             // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-            'can' => serialize(['admin']),
-            'icon' => 'far fa-circle',
+            'can' => serialize(['admin', 'terdaftar']),
+            'icon' => 'fas fa-clipboard',
             'urut' => 1,
-            'parent_id' => $menu->id,
-            'active' => serialize(['ppid/data-pemohon', 'ppid/data-pemohon*']),]);
+            'parent_id' => 0,
+            'active' => serialize(['ppid/pemohon', 'ppid/pemohon*']),
+        ]);
+        
+        // Menu::create([
+        //     'modul' => 'Ppid',
+        //     'label' => 'Data Pemohon',
+        //     'url' => 'ppid/data-pemohon',
+        //     // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
+        //     'can' => serialize(['admin']),
+        //     'icon' => 'far fa-circle',
+        //     'urut' => 1,
+        //     'parent_id' => $menu->id,
+        //     'active' => serialize(['ppid/data-pemohon', 'ppid/data-pemohon*']),]);
 
         $menu =  Menu::create([
             'modul' => 'Ppid',
@@ -154,14 +177,14 @@ class MenuModulPpidTableSeeder extends Seeder
 
         $menu =  Menu::create([
             'modul' => 'Ppid',
-            'label' => 'Permohonan Informasi',
-            'url' => 'ppid/pemohon',
+            'label' => 'Riwayat Permohonan',
+            'url' => 'ppid/riwayat-permohonan',
             // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
-            'can' => serialize(['admin', 'terdaftar']),
+            'can' => serialize(['admin']),
             'icon' => 'fas fa-clipboard',
             'urut' => 1,
             'parent_id' => 0,
-            'active' => serialize(['ppid/pemohon', 'ppid/pemohon*']),
+            'active' => serialize(['ppid/riwayat-permohonan', 'ppid/riwayat-permohonan*']),
         ]);
     }
 }

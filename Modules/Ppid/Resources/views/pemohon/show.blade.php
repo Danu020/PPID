@@ -27,6 +27,9 @@
                     <td>{{ $permohonaninformasi->email }}</td>
                 </tr>
                 <tr>
+                    <th>Jenis Permohonan</th>
+                    <td>{{ $permohonaninformasi->jenisPermohonan->jenis_permohonan ?? 'Tidak Diketahui' }}</td>
+                <tr>
                     <th>Informasi yang Dibutuhkan</th>
                     <td>{{ $permohonaninformasi->informasi_yang_dibutuhkan }}</td>
                 </tr>
@@ -38,6 +41,17 @@
                     <th>Status</th>
                     <td>{{ ucfirst($permohonaninformasi->status) }}</td>
                 </tr>
+                <tr>
+                    <th>File</th>
+                    <td>
+                        @if($permohonaninformasi->file)
+                            <a href="{{ Storage::url($permohonaninformasi->file) }}" target="_blank">Lihat File</a>
+                        @else
+                            Tidak ada file yang diunggah.
+                        @endif
+                <tr>
+                    <th>Catatan</th>
+                    <td>{{ $permohonaninformasi->catatan ?? '-' }}</td>
                 <tr>
                     <th>Tanggal Permohonan</th>
                     <td>{{ $permohonaninformasi->created_at->format('d-m-Y H:i') }}</td>
