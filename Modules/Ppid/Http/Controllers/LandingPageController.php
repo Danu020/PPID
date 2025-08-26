@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Modules\Ppid\Entities\Berita;
 use Modules\Ppid\Entities\Datadokumen;
 use Modules\Ppid\Entities\DataInformasi;
+use Modules\Ppid\Entities\KelolaProfil;
+use Modules\Ppid\Entities\Pengumuman;
 
 class LandingPageController extends Controller
 {
@@ -41,9 +43,30 @@ class LandingPageController extends Controller
         return view('ppid::landing-page.pages.publikasi.berita.detail', compact('berita'));
     }
 
-    public function pengumumanIndex() {}
+    public function pengumumanIndex(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $perPage = 6;
+        $offset = ($page - 1) * $perPage;
 
-    public function pengumumanDetail($id) {}
+        $news = DB::select("SELECT * FROM pengumumen LIMIT ? OFFSET ?", [$perPage, $offset]);
+        $totalRows = DB::selectOne("SELECT COUNT(*) as total FROM pengumumen");
+        $totalNews = $totalRows->total;
+
+        return view('ppid::landing-page.pages.publikasi.pengumuman.index', [
+            'news' => $news,
+            'current_page' => $page,
+            'last_page' => ceil($totalNews / $perPage),
+            'per_page' => $perPage,
+            'total' => $totalNews
+        ]);
+    }
+
+    public function pengumumanDetail($id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
+        return view('ppid::landing-page.pages.publikasi.pengumuman.detail', compact('pengumuman'));
+    }
 
     public function informasiSetiapSaatIndex()
     {
@@ -64,7 +87,6 @@ class LandingPageController extends Controller
             ->get();
         return view('ppid::landing-page.pages.informasi-publik.informasi-berkala', compact('datainformasi'));
     }
-
 
     public function informasiSertaMertaIndex()
     {
@@ -154,5 +176,23 @@ class LandingPageController extends Controller
             })
             ->get();
         return view('ppid::landing-page.pages.layanan-informasi.penyelesaian-sengketa', compact('dataDokumen'));
+    }
+
+    public function sambutanDirekturShow()
+    {
+        $profil = KelolaProfil::findOrFail(1);
+        return view('ppid::landing-page.pages.profil.sambutan-direktur', compact('profil'));
+    }
+
+    public function visiMisiShow()
+    {
+        $profil = KelolaProfil::findOrFail(1);
+        return view('ppid::landing-page.pages.profil.visi-misi', compact('profil'));
+    }
+
+    public function profilPpidShow()
+    {
+        $profil = KelolaProfil::findOrFail(1);
+        return view('ppid::landing-page.pages.profil.profil-ppid', compact('profil'));
     }
 }

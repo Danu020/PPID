@@ -45,7 +45,7 @@ class KelolaProfilController extends Controller
     // Tampilkan form edit profil
     public function edit($id)
     {
-        $kelola_profil = KelolaProfil::findOrFail($id);
+        $kelola_profil = KelolaProfil::findOrFail(1);
         return view('ppid::kelolaprofil.form', compact('kelola_profil'));
     }
 
@@ -66,6 +66,11 @@ class KelolaProfilController extends Controller
         if ($request->hasFile('foto_organisasi')) {
             $data['foto_organisasi'] = $request->file('foto_organisasi')->store('profil', 'public');
         }
+
+        if ($request->hasFile('media')) {
+            $data['media'] = $request->file('media')->store('profil', 'public');
+        }
+
         $kelola_profil->update($data);
         return redirect()->route('kelolaprofil.index')->with('success', 'Profil berhasil diupdate.');
     }
@@ -78,3 +83,4 @@ class KelolaProfilController extends Controller
         return redirect()->route('kelolaprofil.index')->with('success', 'Profil berhasil dihapus.');
     }
 }
+

@@ -177,14 +177,14 @@ class MenuModulPpidTableSeeder extends Seeder
 
         $menu =  Menu::create([
             'modul' => 'Ppid',
-            'label' => 'Riwayat Permohonan',
-            'url' => 'ppid/riwayat-permohonan',
+            'label' => 'Riwayat',
+            'url' => 'ppid/riwayat',
             // 'can' => serialize(['pimpinan', 'pejabat', 'sekretaris', 'kepegawaian', 'dosen']),
             'can' => serialize(['admin']),
             'icon' => 'fas fa-clipboard',
             'urut' => 1,
             'parent_id' => 0,
-            'active' => serialize(['ppid/riwayat-permohonan', 'ppid/riwayat-permohonan*']),
+            'active' => serialize(['ppid/riwayat', 'ppid/riwayat*']),
         ]);
     }
 }

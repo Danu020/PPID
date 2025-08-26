@@ -5,6 +5,8 @@ namespace Modules\Ppid\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Ppid\Entities\RiwayatPermohonan;
+use Illuminate\Support\Facades\Auth;
 
 class RiwayatpermohonanController extends Controller
 {
@@ -14,7 +16,12 @@ class RiwayatpermohonanController extends Controller
      */
     public function index()
     {
-        return view('ppid::index');
+        $query = Riwayatpermohonan::with(['user', 'permohonan', 'jenisPermohonan']);
+        if (Auth::user()->role_aktif == 'masyarakat') {
+            $query->where('user_id', Auth::user()->id);
+        }
+        $riwayat = $query->latest()->paginate(10);
+        return view('ppid::riwayat.index', compact('riwayat'));
     }
 
     /**

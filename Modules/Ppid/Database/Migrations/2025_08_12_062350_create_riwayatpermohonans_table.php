@@ -20,13 +20,13 @@ class CreateRiwayatpermohonansTable extends Migration
             $table->string('nama_pemohon'); // Dari permohonaninformasi
             $table->unsignedBigInteger('jenis_permohonan_id'); // Dari tabel jenis_permohonan
             $table->text('informasi_dibutuhkan'); // Dari permohonaninformasi
-            $table->enum('status', ['menunggu', 'diproses', 'ditolak', 'selesai'])->default('menunggu'); // Dari permohonaninformasi
+            $table->enum('status', ['diproses', 'ditolak', 'selesai'])->default('diproses'); // Dari permohonaninformasi
             $table->date('tanggal_permohonan'); // Dari permohonaninformasi
             $table->timestamps();
 
             // Relasi
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('permohonan_id')->references('id')->on('permohonaninformasi')->onDelete('cascade');
+            $table->foreign('permohonan_id')->references('id')->on('permohonaninformasis')->onDelete('cascade');
         });
     }
 

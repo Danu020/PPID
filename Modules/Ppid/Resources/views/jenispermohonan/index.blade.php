@@ -8,11 +8,11 @@
             <a href="{{ route('jenispermohonan.create') }}" class="btn btn-primary mb-3">Tambah Jenis Permohonan</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped align-middle">
-                    <thead class="thead-light">
+                    <thead class="table-primary">
                         <tr>
-                            <th style="width: 50px; text-align: center;">No</th>
-                            <th>Jenis Permohonan</th>
-                            <th style="width: 120px; text-align: center;">Aksi</th>
+                            <th>No</th>
+                            <th style="width: 900px; text-align: center;">Jenis Permohonan</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,12 +21,14 @@
                             <td class="text-center">{{ $index + 1 }}</td>
                             <td>{{ $item->jenis_permohonan }}</td>
                             <td class="text-center">
-                                <a href="{{ route('jenispermohonan.edit', $item->id) }}" class="btn btn-warning btn-sm mb-1">Edit</a>
+                                <div class="d-flex">
+                                <a href="{{ route('jenispermohonan.edit', $item->id) }}" class="btn btn-warning btn-sm mb-1" style="margin-right: 5px">Edit</a>
                                 <form action="{{ route('jenispermohonan.destroy', $item->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')">Hapus</button>
                                 </form>
+                                </div>
                             </td>
                         </tr>
                         @empty

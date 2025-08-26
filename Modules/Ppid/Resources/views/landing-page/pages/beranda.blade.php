@@ -4,50 +4,29 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="relative overflow-hidden"
-        style="background: linear-gradient(135deg, var(--primary-blue) 0%, #0066a3 100%);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="text-white">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                        Portal Pengelolaan
-                        <span class="block" style="color: var(--primary-yellow);">Informasi dan</span>
-                        Dokumentasi
-                    </h1>
-                    <p class="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
-                        Portal Pengelola Informasi dan Dokumentasi Politeknik Negeri Banyuwangi
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        {{-- <a href="{{ route('profil') }}"
-                            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
-                            style="background-color: var(--primary-yellow); color: var(--primary-blue);">
-                            Pelajari Lebih Lanjut
-                            <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a> --}}
-                        {{-- <a href="{{ route('download') }}"
-                            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-lg hover:bg-white transition-all duration-200 transform hover:scale-105"
-                            style="hover:color: var(--primary-blue);">
-                            Download Dokumen
-                            <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                        </a> --}}
-                    </div>
-                </div>
-                <div class="relative">
-                    <div
-                        class="w-full h-96 bg-white bg-opacity-10 rounded-2xl backdrop-blur-sm flex items-center justify-center">
-                        <div class="text-center text-white">
-                            {{-- <div class="w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center text-3xl font-bold"
-                                style="background-color: var(--primary-yellow); color: var(--primary-blue);">
-                                MoU
-                            </div> --}}
-                            <p class="text-lg">Campus Partnership Hub</p>
-                        </div>
-                    </div>
+    <section class="relative overflow-hidden flex items-center justify-center text-center"
+        style="background: linear-gradient(135deg, var(--primary-blue) 0%, #0066a3 100%); min-height: 100vh;">
+        <div class="max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div class="text-white">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    Selamat Datang
+                    <span class="block">di Portal Pengelola</span>
+                    Informasi Dan Dokumentasi
+                </h1>
+                <p class="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
+                    Portal Pengelola Informasi dan Dokumentasi Politeknik Negeri Banyuwangi
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    {{-- Tombol opsional kalau mau ditampilkan --}}
+                    {{-- <a href="{{ route('profil') }}"
+                        class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
+                        style="background-color: var(--primary-yellow); color: var(--primary-blue);">
+                        Pelajari Lebih Lanjut
+                        <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a> --}}
                 </div>
             </div>
         </div>

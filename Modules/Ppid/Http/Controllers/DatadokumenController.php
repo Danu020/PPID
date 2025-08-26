@@ -27,9 +27,16 @@ class DatadokumenController extends Controller
     {
         $request->validate([
             'nama_dokumen' => 'required|string|max:255',
-            'tahun' => 'nullable|date',
+            'tahun' => 'required|date',
             'jenis_dokumens_id' => 'required|exists:jenis_dokumens,id',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png',
+            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png',
+        ], [
+            'nama_dokumen.required' => 'Nama dokumen wajib diisi.',
+            'tahun.required' => 'Tahun wajib dipilih.',
+            'jenis_dokumens_id.required' => 'Jenis dokumen wajib dipilih.',
+            'file.required' => 'File dokumen wajib diunggah.',
+            'file.mimes' => 'Format file harus pdf, doc, docx, xls, xlsx, ppt, pptx, jpg, jpeg, png.',
+            'file.max' => 'Ukuran file maksimal adalah 2MB.',
         ]);
 
         $data = $request->except('file');
@@ -38,6 +45,7 @@ class DatadokumenController extends Controller
         }
         Datadokumen::create($data);
         return redirect()->route('datadokumen.index')->with('success', 'Data dokumen berhasil ditambahkan.');
+        return redirect()->route('error', 'Gagal menambahkan dokumen, silahkan coba lagi.');
     }
 
     // Form edit data dokumen
@@ -54,7 +62,7 @@ class DatadokumenController extends Controller
         $request->validate([
             'nama_dokumen' => 'required|string|max:255',
             'tahun' => 'nullable|date',
-            'jenis_dokumen_id' => 'required|exists:jenis_dokumen,id',
+            'jenis_dokumen_id' => 'required|exists:jenis_dokumens,id',
             'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png',
         ]);
         $datadokumen = Datadokumen::findOrFail($id);

@@ -34,7 +34,7 @@
             </nav>
 
 
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6" style="color: var(--primary-blue);">
+            <h1 class="text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-6" style="color: var(--primary-blue);">
                 {{ $berita->judul }}
             </h1>
 
@@ -81,9 +81,9 @@
     </section>
 
     <!-- Yellow Divider Line -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{-- <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="h-1 rounded-full mb-8" style="background-color: var(--primary-yellow);"></div>
-    </div>
+    </div> --}}
 
     <!-- Main Image Section -->
     <section class="mb-12">

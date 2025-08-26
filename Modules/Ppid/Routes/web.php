@@ -16,6 +16,17 @@ use Modules\Ppid\Http\Controllers\PermohonaninformasiController;
 |
 */
 Route::get("/", "LandingPageController@index")->name('home');
+Route::prefix("profil")->group(function () {
+    Route::prefix("sambutan-direktur")->group(function () {
+        Route::get("/", "LandingPageController@sambutanDirekturShow")->name('publik.p.direktur.index');
+    });
+    Route::prefix("profil-ppid")->group(function () {
+        Route::get("/", "LandingPageController@profilPpidShow")->name('publik.p.profil.index');
+    });
+    Route::prefix("visi-misi")->group(function () {
+        Route::get("/", "LandingPageController@visiMisiShow")->name('publik.p.visi-misi.index');
+    });
+});
 
 Route::prefix("informasi-publik")->group(function () {
     Route::prefix("regulasi")->group(function () {
@@ -65,13 +76,12 @@ Route::prefix("publikasi")->group(function () {
         Route::get("/", "LandingPageController@pengumumanIndex")->name('publikasi.pengumuman.index');
         Route::get("/{id}", "LandingPageController@pengumumanDetail")->name('publikasi.pengumuman.show');
     });
-        
 });
 
 Route::group(['middleware' => ['auth', 'permission']], function () {
     Route::prefix('ppid')->group(function() {
         // Permohonan Informasi
-            Route::prefix('pemohon')->group(function () {
+        Route::prefix('pemohon')->group(function () {
             // Untuk pengguna
             Route::get('/', 'PermohonaninformasiController@index')->name('permohonaninformasi.index');
             Route::get('/create', 'PermohonaninformasiController@create')->name('permohonaninformasi.create');
@@ -173,6 +183,10 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
             Route::get('/{id}/edit', 'DataInformasiController@edit')->name('datainformasi.edit');
             Route::put('/{id}/update', 'DataInformasiController@update')->name('datainformasi.update');
             Route::delete('/{id}/delete', 'DataInformasiController@destroy')->name('datainformasi.destroy');
+        });
+        // Riwayat Permohonan
+        Route::prefix('riwayat')->group(function (){
+            Route::get('/', 'RiwayatpermohonanController@index')->name('riwayat.index');
         });
     });
 

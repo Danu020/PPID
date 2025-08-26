@@ -109,116 +109,94 @@
             </div> --}}
 
             <!-- Table Section -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <!-- Table Header -->
-                <div class="px-6 py-4 border-b border-gray-200" style="background-color: #004878;">
-                    <h2 class="text-xl font-semibold text-white">Daftar Informasi Publik</h2>
-                </div>
+            <!-- Table Section -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <!-- Table Header -->
+    <div class="px-6 py-4 border-b border-gray-200" style="background-color: #004878;">
+        <h2 class="text-xl font-semibold text-white">Daftar Informasi Publik</h2>
+    </div>
 
-                <!-- Table Content -->
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    No
-                                </th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Nama Informasi
-                                </th>
-                                {{-- <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Jenis Informasi
-                                </th> --}}
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Terakhir Update
-                                </th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Aksi
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200" id="table-body">
-                            @forelse($dataDokumen as $index => $item)
-                                <tr class="hover:bg-gray-50 transition-colors duration-200"
-                                    data-jenis="{{ $item->nama_dokumen->nama_jenis ?? '' }}"
-                                    data-nama="{{ strtolower($item->nama_dokumen) }}">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {{ $index + 1 }}
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900">
-                                        <div class="font-medium">{{ $item->nama_dokumen }}</div>
-                                    </td>
-                                    {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                            style="background-color: rgba(242, 177, 26, 0.1); color: #f2b11a;">
-                                            {{ $item->nama_dokumen->nama_jenis ?? 'Tidak Dikategorikan' }}
-                                        </span>
-                                    </td> --}}
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y, H:i') }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                        @if ($item->file_path && file_exists(public_path('storage/' . $item->file_path)))
-                                            <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank"
-                                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white transition-colors duration-200 hover:opacity-90"
-                                                style="background-color: #004878;">
-                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                    </path>
-                                                </svg>
-                                                Unduh PDF
-                                            </a>
-                                        @else
-                                            <span
-                                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 rounded-md">
-                                                Tidak Tersedia
-                                            </span>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="px-6 py-12 text-center">
-                                        <div class="flex flex-col items-center">
-                                            <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                                </path>
-                                            </svg>
-                                            <p class="text-gray-500 text-lg font-medium">Tidak ada data informasi</p>
-                                            <p class="text-gray-400 text-sm mt-1">Data informasi akan ditampilkan di sini
-                                                ketika tersedia</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Table Footer -->
-                {{-- <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-                    <div class="flex items-center justify-between">
-                        <div class="text-sm text-gray-700">
-                            Menampilkan <span class="font-medium" id="showing-count">{{ $dataDokumen->count() }}</span>
-                            dari
-                            <span class="font-medium">{{ $dataDokumen->count() }}</span> data
-                        </div>
-                        <div class="text-sm text-gray-500">
-                            <span style="color: #004878;">PPID Politeknik Negeri Banyuwangi</span>
-                        </div>
-                    </div>
-                </div> --}}
-            </div>
+    <!-- Table Content -->
+        <div class="overflow-x-auto">
+            <div class="min-w-full align-middle">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            No
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nama Informasi
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Tahun
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="table-body">
+                    @forelse($dataDokumen as $index => $item)
+                        <tr class="hover:bg-gray-50 transition-colors duration-200"
+                            data-jenis="{{ $item->nama_dokumen->nama_jenis ?? '' }}"
+                            data-nama="{{ strtolower($item->nama_dokumen) }}">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ $index + 1 }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-900">
+                                <div class="font-medium">{{ $item->nama_dokumen }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{-- Pastikan field tahun ada di database --}}
+                                {{ $item->tahun ?? '-' }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                @if ($item->file_path && file_exists(public_path('storage/' . $item->file_path)))
+                                    <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white transition-colors duration-200 hover:opacity-90"
+                                        style="background-color: #004878;">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                            </path>
+                                        </svg>
+                                        Unduh PDF
+                                    </a>
+                                @else
+                                    <span
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-400 bg-gray-100 rounded-md">
+                                        Tidak Tersedia
+                                    </span>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center">
+                                    <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                        </path>
+                                    </svg>
+                                    <p class="text-gray-500 text-lg font-medium">Tidak ada data informasi</p>
+                                    <p class="text-gray-400 text-sm mt-1">Data informasi akan ditampilkan di sini
+                                        ketika tersedia</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 
             <!-- Information Note -->
             {{-- <div class="mt-8 bg-blue-50 border-l-4 p-4 rounded-r-lg" style="border-left-color: #004878;">

@@ -74,7 +74,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Autentikasi'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-		
+		Route::get('/register', 'LoginController@registerShow')->name('register.show');
+        Route::post('/register', 'LoginController@register')->name('register.perform');
 		/*
 		*SSO
 		*/

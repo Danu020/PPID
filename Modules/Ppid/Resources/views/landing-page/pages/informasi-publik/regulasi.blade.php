@@ -110,13 +110,14 @@
 
             <!-- Table Section -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <!-- Table Header -->
-                <div class="px-6 py-4 border-b border-gray-200" style="background-color: #004878;">
-                    <h2 class="text-xl font-semibold text-white">Daftar Regulasi</h2>
-                </div>
+    <!-- Table Header -->
+    <div class="px-6 py-4 border-b border-gray-200" style="background-color: #004878;">
+        <h2 class="text-xl font-semibold text-white">Daftar Regulasi</h2>
+    </div>
 
-                <!-- Table Content -->
-                <div class="overflow-x-auto">
+    <!-- Table Content -->
+            <div class="overflow-x-auto">
+                <div class="min-w-full align-middle">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
@@ -128,13 +129,9 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Nama Informasi
                                 </th>
-                                {{-- <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Jenis Informasi
-                                </th> --}}
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Terakhir Update
+                                    Tahun
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -153,15 +150,9 @@
                                     <td class="px-6 py-4 text-sm text-gray-900">
                                         <div class="font-medium">{{ $item->nama_dokumen }}</div>
                                     </td>
-                                    {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                            style="background-color: rgba(242, 177, 26, 0.1); color: #f2b11a;">
-                                            {{ $item->nama_dokumen->nama_jenis ?? 'Tidak Dikategorikan' }}
-                                        </span>
-                                    </td> --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y, H:i') }}
+                                        {{-- Ambil kolom tahun dari database, misal field "tahun" --}}
+                                        {{ $item->tahun ?? '-' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                         @if ($item->file_path && file_exists(public_path('storage/' . $item->file_path)))
@@ -204,20 +195,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Table Footer -->
-                {{-- <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-                    <div class="flex items-center justify-between">
-                        <div class="text-sm text-gray-700">
-                            Menampilkan <span class="font-medium" id="showing-count">{{ $dataDokumen->count() }}</span>
-                            dari
-                            <span class="font-medium">{{ $dataDokumen->count() }}</span> data
-                        </div>
-                        <div class="text-sm text-gray-500">
-                            <span style="color: #004878;">PPID Politeknik Negeri Banyuwangi</span>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
 
             <!-- Information Note -->
