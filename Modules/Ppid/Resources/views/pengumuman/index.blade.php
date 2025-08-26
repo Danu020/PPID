@@ -8,11 +8,11 @@
             <a href="{{ route('pengumuman.create') }}" class="btn btn-primary mb-3">Tambah Pengumuman</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped align-middle">
-                    <thead class="thead-light">
+                    <thead class="table-primary">
                         <tr>
                             <th>No</th>
-                            <th>Judul</th>
-                            <th>Deskripsi</th>
+                            <th style="width: 300px; text-align: center;">Judul</th>
+                            <th style="width: 300px; text-align: center;">Deskripsi</th>
                             <th>Tanggal</th>
                             <th>Sumber</th>
                             <th>Gambar</th>
@@ -35,13 +35,14 @@
                                 @endif
                             </td>
                             <td>
-                                {{-- <a href="{{ route('pengumuman.show', $pengumuman->id) }}" class="btn btn-info btn-sm">Lihat</a> --}}
-                                <a href="{{ route('pengumuman.edit', $pengumuman->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <div class="d-flex">
+                                <a href="{{ route('pengumuman.edit', $pengumuman->id) }}" class="btn btn-warning btn-sm" style="margin-right: 5px">Edit</a>
                                 <form action="{{ route('pengumuman.destroy', $pengumuman->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus pengumuman ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
+                                </div>
                             </td>
                         </tr>
                         @empty

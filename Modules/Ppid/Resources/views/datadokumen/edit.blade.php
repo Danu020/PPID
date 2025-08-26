@@ -21,7 +21,7 @@
                     <select name="jenis_dokumen_id" id="jenis_dokumen_id" class="form-control" required>
                         <option value="">- Pilih Jenis Dokumen -</option>
                         @foreach($jenis_dokumen as $jenis)
-                            <option value="{{ $jenis->id }}" @if($datadokumen->jenis_dokumen_id == $jenis->id) selected @endif>{{ $jenis->nama_jenis }}</option>
+                            <option value="{{ $jenis->id }}" @if($datadokumen->jenis_dokumen_id == $jenis->id) selected @endif>{{ $jenis->jenis_dokumen }}</option>
                         @endforeach
                     </select>
                 </div>

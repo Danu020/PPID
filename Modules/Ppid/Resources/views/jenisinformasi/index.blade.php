@@ -8,10 +8,10 @@
             <a href="{{ route('jenisinformasi.create') }}" class="btn btn-primary mb-3">Tambah Jenis Informasi</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped align-middle">
-                    <thead class="thead-light">
+                    <thead class="table-primary">
                         <tr>
                             <th>No</th>
-                            <th>Jenis Informasi</th>
+                            <th style="width: 900px; text-align: center;">Jenis Informasi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>

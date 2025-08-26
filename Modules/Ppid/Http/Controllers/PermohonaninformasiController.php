@@ -2,12 +2,15 @@
 
 namespace Modules\Ppid\Http\Controllers;
 
+use App\Models\Core\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\Ppid\Entities\Permohonaninformasi;
 use Modules\Ppid\Entities\JenisPermohonan;
 use Illuminate\Support\Facades\Storage;
+use Modules\Ppid\Entities\riwayatpermohonan;
 
 class PermohonaninformasiController extends Controller
 {
@@ -15,12 +18,27 @@ class PermohonaninformasiController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
-    {
-        $permohonaninformasi = Permohonaninformasi::with('jenisPermohonan')->latest()->get();
-
-        return view('ppid::pemohon.index', compact('permohonaninformasi'));
+    public function index(Request $request)
+{
+    $query = Permohonaninformasi::with('jenisPermohonan');
+    if (Auth::user()->role_aktif == 'masyarakat') {
+    $query->where('email', Auth::user()->email);
     }
+
+    // Filter berdasarkan nama_pemohon
+    if ($request->filled('nama_pemohon')) {
+        $query->where('nama_pemohon', 'like', '%' . $request->nama_pemohon . '%');
+    }
+
+    // Filter berdasarkan tanggal permohonan (created_at)
+    if ($request->filled('tanggal')) {
+        $query->whereDate('created_at', $request->tanggal);
+    }
+
+    $permohonaninformasi = $query->latest()->paginate(10); // lebih rapi pakai paginate
+
+    return view('ppid::pemohon.index', compact('permohonaninformasi'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -28,11 +46,7 @@ class PermohonaninformasiController extends Controller
      */
     public function create()
     {
-        // if (auth()->user()->role !== 'masyarakat') {
-        //     abort(403, 'anda tidak memiliki akses untuk membuat permohonan informasi.');
-        // }
         $jenis_permohonan = JenisPermohonan::all();
-
         return view('ppid::pemohon.add', compact('jenis_permohonan'));
     }
 
@@ -43,9 +57,6 @@ class PermohonaninformasiController extends Controller
      */
     public function store(Request $request)
     {
-        // if (auth()->user()->role !== 'masyarakat') {
-        //     abort(403, 'Anda tidak memiliki akses untuk membuat permohonan informasi.');
-        // }
 
          $request->validate([
             'nama_pemohon' => 'required|string|max:255',
@@ -58,6 +69,18 @@ class PermohonaninformasiController extends Controller
             'jenis_permohonan_id' => 'required|exists:jenis_permohonans,id',
             'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // Optional file validation
             'catatan' => 'nullable|string|max:500',
+        ], [
+            'nama_pemohon.required' => 'Nama pemohon wajib diisi.',
+            'nik.required' => 'NIK wajib diisi.',
+            'alamat_pemohon.required' => 'Alamat pemohon wajib diisi.',
+            'nomor_telepon.required' => 'Nomor telepon wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'informasi_yang_dibutuhkan.required' => 'Informasi yang dibutuhkan wajib diisi.',
+            'alasan_permohonan.required' => 'Alasan permohonan wajib diisi.',
+            'jenis_permohonan_id.required' => 'Jenis permohonan wajib dipilih.',
+            'file.mimes' => 'Format file harus pdf, jpg, jpeg, png.',
+            'file.max' => 'Ukuran file maksimal adalah 2MB.',
+            'catatan.max' => 'Catatan maksimal 500 karakter.',
         ]);
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('permohonan_files', 'public');
@@ -73,7 +96,7 @@ class PermohonaninformasiController extends Controller
             'informasi_yang_dibutuhkan' => $request->informasi_yang_dibutuhkan,
             'alasan_permohonan' => $request->alasan_permohonan,
             'jenis_permohonan_id' => $request->jenis_permohonan_id,
-            'status' => 'menunggu',
+            'status' => 'diproses',
         ]);
 
         return redirect()->route('permohonaninformasi.index')->with('success', 'Permohonan informasi berhasil dibuat.');
@@ -87,7 +110,6 @@ class PermohonaninformasiController extends Controller
     public function show($id)
     {
         $permohonaninformasi = Permohonaninformasi::with('jenisPermohonan')->findOrFail($id);
-
         return view('ppid::pemohon.show', compact('permohonaninformasi'));
     }
 
@@ -99,9 +121,6 @@ class PermohonaninformasiController extends Controller
     public function edit($id)
     {
         $permohonaninformasi = Permohonaninformasi::findOrFail($id);
-        // if (auth()->user()->role !== 'masrayakat' || auth()->id() !== $permohonaninformasi->user_id) {
-        //     abort(403, 'Anda tidak memiliki akses untuk mengedit permohonan informasi.');
-        // }
         $jenis_permohonan = JenisPermohonan::all();
 
         return view('ppid::pemohon.edit', compact('permohonaninformasi', 'jenis_permohonan'));
@@ -137,6 +156,24 @@ class PermohonaninformasiController extends Controller
             $data['file'] = $request->file('file')->store('permohonan_files', 'public');
         }
         $permohonan->update($data);
+
+        if (in_array($request->status, ['ditolak', 'disetujui'])) {
+        // Find the user (pemohon) based on NIK or email
+        $user = User::where('email', $request->email)
+            ->first();
+
+        if ($user) {
+            riwayatpermohonan::create([
+                'user_id' => $user->id, // ID of the pemohon
+                'permohonan_id' => $permohonan->id,
+                'nama_pemohon' => $permohonan->nama_pemohon,
+                'jenis_permohonan_id' => $permohonan->jenis_permohonan_id,
+                'informasi_dibutuhkan' => $permohonan->informasi_yang_dibutuhkan,
+                'status' => $permohonan->status,
+                'tanggal_permohonan' => now(), // or $permohonan->created_at
+            ]);
+            }
+        }
 
         return redirect()->route('permohonaninformasi.index')->with('success', 'Permohonan informasi berhasil diperbarui.');
     }

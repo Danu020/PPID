@@ -6,7 +6,7 @@
                 <a href="{{ route('home') }}" class="flex items-center">
                     <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg"
                         style="background-color: var(--primary-blue);">
-                        <img src="{{ asset('logo_poliwangi.jpg') }}" alt="logo poliwangi">
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="logo poliwangi">
                     </div>
                     <span class="ml-3 text-xl font-semibold" style="color: var(--primary-blue);">
                         PPID Poliwangi
@@ -43,15 +43,15 @@
                         <div
                             class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                             <div class="py-1">
-                                <a href="#"
+                                <a href="{{ route('publik.p.direktur.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
                                     Sambutan Direktur
                                 </a>
-                                <a href="#"
+                                <a href="{{ route('publik.p.profil.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
                                     Profil PPID
                                 </a>
-                                <a href="#"
+                                <a href="{{ route('publik.p.visi-misi.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
                                     Visi dan Misi
                                 </a>
@@ -133,15 +133,15 @@
                                 </a>
                                 <a href="{{ route('publik.l-permohonan-informasi.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
-                                    Permohonan Informasi
+                                    Prosedur Pengajuan Permohonan Informasi
                                 </a>
                                 <a href="{{ route('publik.l-permohonan-keberatan.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
-                                    Keberatan Informasi
+                                    Prosedur Pengajuan Keberatan Informasi
                                 </a>
                                 <a href="{{ route('publik.l-permohonan-sengketa.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
-                                    Penyelesaian Sengketa
+                                    Prosedur Pengajuan Penyelesaian Sengketa
                                 </a>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
                                     Berita
                                 </a>
-                                <a href="#"
+                                <a href="{{ route('publikasi.pengumuman.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
                                     Pengumuman
                                 </a>
@@ -294,7 +294,8 @@
                 <div id="publikasi-submenu" class="hidden pl-6 space-y-1">
                     <a href="{{ route('publikasi.berita.index') }}"
                         class="block px-3 py-2 text-sm text-gray-600">Berita</a>
-                    <a href="#" class="block px-3 py-2 text-sm text-gray-600">Pengumuman</a>
+                    <a href="{{ route('publikasi.pengumuman.index') }}"
+                        class="block px-3 py-2 text-sm text-gray-600">Pengumuman</a>
                 </div>
             </div>
 
@@ -320,3 +321,4 @@
         arrow.classList.toggle('rotate-180');
     }
 </script>
+
