@@ -45,7 +45,6 @@ class DatadokumenController extends Controller
         }
         Datadokumen::create($data);
         return redirect()->route('datadokumen.index')->with('success', 'Data dokumen berhasil ditambahkan.');
-        return redirect()->route('error', 'Gagal menambahkan dokumen, silahkan coba lagi.');
     }
 
     // Form edit data dokumen
