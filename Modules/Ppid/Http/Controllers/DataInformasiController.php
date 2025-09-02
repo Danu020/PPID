@@ -51,7 +51,6 @@ class DataInformasiController extends Controller
         ]);
 
         return redirect()->route('datainformasi.index')->with('success', 'Data Informasi berhasil ditambahkan.');
-        return redirect()->route('error', 'Gagal menambahkan dokumen, silahkan coba lagi.');
     }
     
 
@@ -74,7 +73,7 @@ class DataInformasiController extends Controller
 
         $request->validate([
             'nama_informasi' => 'required|string|max:255',
-            'jenis_informasi_id' => 'required|exists:jenis_informasi,id',
+            'jenis_informasi_id' => 'required|exists:jenis_informasis,id',
             'link' => 'required|url',
         ]);
 

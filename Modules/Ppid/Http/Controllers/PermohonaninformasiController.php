@@ -19,26 +19,26 @@ class PermohonaninformasiController extends Controller
      * @return Renderable
      */
     public function index(Request $request)
-{
-    $query = Permohonaninformasi::with('jenisPermohonan');
-    if (Auth::user()->role_aktif == 'masyarakat') {
-    $query->where('email', Auth::user()->email);
+    {
+        $query = Permohonaninformasi::with('jenisPermohonan');
+        if (Auth::user()->role_aktif == 'masyarakat') {
+        $query->where('email', Auth::user()->email);
+        }
+
+        // Filter berdasarkan nama_pemohon
+        if ($request->filled('nama_pemohon')) {
+            $query->where('nama_pemohon', 'like', '%' . $request->nama_pemohon . '%');
+        }
+
+        // Filter berdasarkan tanggal permohonan (created_at)
+        if ($request->filled('tanggal')) {
+            $query->whereDate('created_at', $request->tanggal);
+        }
+
+        $permohonaninformasi = $query->latest()->paginate(10); // lebih rapi pakai paginate
+
+        return view('ppid::pemohon.index', compact('permohonaninformasi'));
     }
-
-    // Filter berdasarkan nama_pemohon
-    if ($request->filled('nama_pemohon')) {
-        $query->where('nama_pemohon', 'like', '%' . $request->nama_pemohon . '%');
-    }
-
-    // Filter berdasarkan tanggal permohonan (created_at)
-    if ($request->filled('tanggal')) {
-        $query->whereDate('created_at', $request->tanggal);
-    }
-
-    $permohonaninformasi = $query->latest()->paginate(10); // lebih rapi pakai paginate
-
-    return view('ppid::pemohon.index', compact('permohonaninformasi'));
-}
 
     /**
      * Show the form for creating a new resource.

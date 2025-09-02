@@ -43,7 +43,7 @@
                             <th>Email</th>
                             <th>Jenis Permohonan</th>
                             <th>Status</th>
-                            <th style="width: 150px; text-align: center;">Aksi</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

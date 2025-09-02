@@ -57,9 +57,7 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-4" style="color: var(--primary-blue);">Informasi Setiap Saat</h3>
                     <p class="text-gray-600">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam aut, incidunt consequatur fuga
-                        nihil iusto officia dolorem perferendis quasi nam possimus eius doloremque libero. Reiciendis iure
-                        nemo alias magni beatae!
+                        Infornasi yang wajib dipublikasikan setiap saat
                     </p>
                 </div>
 
@@ -74,9 +72,7 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-4" style="color: var(--primary-blue);">Informasi Berkala</h3>
                     <p class="text-gray-600">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam aut, incidunt consequatur fuga
-                        nihil iusto officia dolorem perferendis quasi nam possimus eius doloremque libero. Reiciendis iure
-                        nemo alias magni beatae!
+                        Infornasi yang wajib dipublikasikan secara berkala
                     </p>
                 </div>
 
@@ -91,9 +87,7 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-4" style="color: var(--primary-blue);">Informasi Serta Merta</h3>
                     <p class="text-gray-600">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam aut, incidunt consequatur fuga
-                        nihil iusto officia dolorem perferendis quasi nam possimus eius doloremque libero. Reiciendis iure
-                        nemo alias magni beatae!
+                        Infornasi yang wajib dipublikasikan secara serta merta
                     </p>
                 </div>
             </div>
@@ -108,21 +102,21 @@
                     Statistik
                 </h2>
                 <p class="text-xl text-blue-100 max-w-2xl mx-auto">
-                    Rekapitulasi Permohonan Inforamsi Publik
+                    Jumlah Permohonan Inforamsi Publik
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary-yellow);">150+</div>
+                    <div class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary-yellow);">20</div>
                     <div class="text-blue-100 text-lg">Permohonan Diajukan</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary-yellow);">100+</div>
+                    <div class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary-yellow);">15</div>
                     <div class="text-blue-100 text-lg">Permohonan Diterima</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary-yellow);">50+</div>
+                    <div class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--primary-yellow);">5</div>
                     <div class="text-blue-100 text-lg">Permohonan Ditolak</div>
                 </div>
             </div>
@@ -136,9 +130,7 @@
                 Berita
             </h2>
             <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam perferendis, alias natus, at ipsa, libero
-                voluptatibus dolorum quasi expedita numquam quae consequuntur veniam pariatur totam. Odio molestiae impedit
-                atque non?
+                
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 {{-- <a href="{{ route('download') }}"
@@ -170,9 +162,7 @@
                 Pengumuman
             </h2>
             <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam perferendis, alias natus, at ipsa, libero
-                voluptatibus dolorum quasi expedita numquam quae consequuntur veniam pariatur totam. Odio molestiae impedit
-                atque non?
+                
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 {{-- <a href="{{ route('download') }}"

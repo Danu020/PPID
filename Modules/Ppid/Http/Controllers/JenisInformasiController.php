@@ -60,8 +60,8 @@ class JenisInformasiController extends Controller
      */
     public function edit($id)
     {
-        $jenisinformasi = JenisInformasi::findOrFail($id);
-        return view('ppid::jenisinformasi.edit', compact('jenisinformasi'));
+        $jenis_informasi = JenisInformasi::findOrFail($id);
+        return view('ppid::jenisinformasi.edit', compact('jenis_informasi'));
     }
 
     /**
