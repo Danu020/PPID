@@ -29,14 +29,14 @@ class DatadokumenController extends Controller
             'nama_dokumen' => 'required|string|max:255',
             'tahun' => 'required|date',
             'jenis_dokumens_id' => 'required|exists:jenis_dokumens,id',
-            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png',
+            'file' => 'required|file|mimes:pdf|max:5048',
         ], [
             'nama_dokumen.required' => 'Nama dokumen wajib diisi.',
             'tahun.required' => 'Tahun wajib dipilih.',
             'jenis_dokumens_id.required' => 'Jenis dokumen wajib dipilih.',
             'file.required' => 'File dokumen wajib diunggah.',
-            'file.mimes' => 'Format file harus pdf, doc, docx, xls, xlsx, ppt, pptx, jpg, jpeg, png.',
-            'file.max' => 'Ukuran file maksimal adalah 2MB.',
+            'file.mimes' => 'Format file harus pdf.',
+            'file.max' => 'Ukuran file maksimal adalah 5MB.',
         ]);
 
         $data = $request->except('file');
@@ -62,7 +62,13 @@ class DatadokumenController extends Controller
             'nama_dokumen' => 'required|string|max:255',
             'tahun' => 'nullable|date',
             'jenis_dokumen_id' => 'required|exists:jenis_dokumens,id',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png',
+            'file' => 'nullable|file|mimes:pdf|max:5048',
+        ], [
+            'nama_dokumen.required' => 'Nama dokumen wajib diisi.',
+            'tahun.required' => 'Tahun wajib dipilih.',
+            'jenis_dokumens_id.required' => 'Jenis dokumen wajib dipilih.',
+            'file.mimes' => 'Format file harus pdf.',
+            'file.max' => 'Ukuran file maksimal adalah 5MB.',
         ]);
         $datadokumen = Datadokumen::findOrFail($id);
         $data = $request->except('file');

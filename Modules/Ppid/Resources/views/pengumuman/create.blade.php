@@ -25,7 +25,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="gambar" class="form-label">Gambar</label>
-                    <input type="file" name="gambar" id="gambar" class="form-control">
+                    <input type="file" name="gambar" id="gambar" accept=".jpg,.jpeg,.png" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary">Kembali</a>

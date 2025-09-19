@@ -56,7 +56,8 @@
                     <label for="file" class="form-label">Upload File</label>
                     <input type="file" 
                            name="file" 
-                           id="file" 
+                           id="file"
+                           accept="application/pdf"
                            class="form-control @error('file') is-invalid @enderror">
                     @error('file')
                         <div class="invalid-feedback">{{ $message }}</div>

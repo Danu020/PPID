@@ -27,7 +27,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="file" class="form-label">Upload File (jika ingin mengganti)</label>
-                    <input type="file" name="file" id="file" class="form-control">
+                    <input type="file" name="file" id="file" accept="application/pdf" class="form-control @error('file') is-invalid @enderror">
                     @if($datadokumen->file_path)
                         <small>File saat ini: <a href="{{ asset('storage/' . $datadokumen->file_path) }}" target="_blank">Download</a></small>
                     @endif

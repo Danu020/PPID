@@ -26,7 +26,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="gambar" class="form-label">Gambar</label>
-                    <input type="file" name="gambar" id="gambar" class="form-control">
+                    <input type="file" name="gambar" id="gambar" accept=".jpg,.jpeg,.png" class="form-control">
                     @if($pengumuman->gambar)
                         <div class="mt-2">
                             <img src="{{ asset('storage/' . $pengumuman->gambar) }}" alt="Gambar" width="120">
