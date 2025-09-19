@@ -40,7 +40,14 @@ class BeritaController extends Controller
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'sumber' => 'nullable|string|max:255',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], [
+            'judul.required' => 'Judul wajib diisi.',
+            'deskripsi.required' => 'Deskripsi wajib diisi.',
+            'tanggal.required' => 'Tanggal wajib diisi.',
+            'gambar.image' => 'File harus berupa gambar.',
+            'gambar.mimes' => 'Format gambar harus jpeg, png, jpg.',
+            'gambar.max' => 'Ukuran gambar maksimal adalah 2MB.',
         ]);
 
         $data = $request->only(['judul', 'deskripsi', 'tanggal', 'sumber']);
@@ -88,7 +95,7 @@ class BeritaController extends Controller
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'sumber' => 'nullable|string|max:255',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $berita = Berita::findOrFail($id);
         $data = $request->only(['judul', 'deskripsi', 'tanggal', 'sumber']);

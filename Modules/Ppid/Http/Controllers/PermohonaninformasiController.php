@@ -67,7 +67,7 @@ class PermohonaninformasiController extends Controller
             'informasi_yang_dibutuhkan' => 'required|string',
             'alasan_permohonan' => 'required|string',
             'jenis_permohonan_id' => 'required|exists:jenis_permohonans,id',
-            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // Optional file validation
+            'file' => 'nullable|file|mimes:pdf,xls,xlsx|max:2048', // Optional file validation
             'catatan' => 'nullable|string|max:500',
         ], [
             'nama_pemohon.required' => 'Nama pemohon wajib diisi.',
@@ -78,7 +78,7 @@ class PermohonaninformasiController extends Controller
             'informasi_yang_dibutuhkan.required' => 'Informasi yang dibutuhkan wajib diisi.',
             'alasan_permohonan.required' => 'Alasan permohonan wajib diisi.',
             'jenis_permohonan_id.required' => 'Jenis permohonan wajib dipilih.',
-            'file.mimes' => 'Format file harus pdf, jpg, jpeg, png.',
+            'file.mimes' => 'Format file harus pdf, xls, xlsx.',
             'file.max' => 'Ukuran file maksimal adalah 2MB.',
             'catatan.max' => 'Catatan maksimal 500 karakter.',
         ]);
@@ -144,7 +144,7 @@ class PermohonaninformasiController extends Controller
             'alasan_permohonan' => 'required|string',
             'jenis_permohonan_id' => 'required|exists:jenis_permohonans,id',
             'status' => 'required|string',
-            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // Optional file validation
+            'file' => 'nullable|file|mimes:pdf,xls, xlsx|max:2048', // Optional file validation
             'catatan' => 'nullable|string|max:500',
         ]);
         $permohonan = Permohonaninformasi::findOrFail($id);
